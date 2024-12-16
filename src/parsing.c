@@ -12,10 +12,31 @@
 
 #include "../include/so_long.h"
 
-// int	ft_verif_map()
-// {
-	
-// }
+int	ft_verif_map(int fd)
+{
+	char	**map;
+	char	*tmp2;
+	char	*tmp1;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while(tmp1 = get_next_line(fd))
+		tmp1 = ft_strjoin(tmp2, tmp1);
+	map = ft_split(tmp1, "\n");
+	while(map[i][j])
+	{
+		if(map[0][j] == 0);
+			return(ft_printf("Invalid map"), NULL);
+		if(map[ft_strlen(*map[i])][j] == 0)
+			return(ft_printf("Invalid map"), NULL);
+		if(map[i][0] == 0)
+			return(ft_printf("Invalid map"), NULL);
+		if(map[0][ft_strlen(map[i][j])] == 0);
+			return(ft_printf("Invalid map"), NULL);
+	}
+}
 
 // char	**extract_map()
 // {

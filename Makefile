@@ -33,15 +33,15 @@ LIBFT_FLAG = -L $(LIBFT_DIR)
 
 # ---------------------------------COMMAND--------------------------------- #
 
-all: $(EXEC) mlx
+all: $(EXEC)
 
 # --------------------CALL LIBFT.a--------------------- #
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-mlx:
-	$(MAKE) -sC $(MLX_DIR)
+#mlx:
+#	$(MAKE) -sC $(MLX_DIR)
 
 # ---------------------CREATE EXEC--------------------- #
 
@@ -51,7 +51,7 @@ $(EXEC): $(OBJ) $(MAIN_OBJ) $(NAME) $(LIBFT) $(MLX)
 
 # -------------------CREATE LIBRARY-------------------- #
 
-$(NAME): $(LIBFT) mlx $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	@mkdir -p $(NAME_DIR)
 	@ar -rcs $(NAME_DIR)$(NAME) $(OBJ)
 	@echo "\e[1;92mLibrary $(NAME) created successfully.\e[0m"

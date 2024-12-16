@@ -41,8 +41,6 @@ int	ft_unnum_len(unsigned long long int n, int baselen)
 	int	len;
 
 	len = 1;
-	if (n < 0)
-		n *= -1;
 	while (n >= (unsigned int)baselen)
 	{
 		n /= baselen;
