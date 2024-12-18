@@ -10,13 +10,27 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct	content_s
+{
+	char	wall;
+	char	space;
+	char	player;
+	char	exit;
+	char	collectible;
+	int		count_e;
+	int		count_p;
+	int		count_c;
+}	t_cont;
+
 typedef	struct	data_s
 {
 	int		width;
 	int		height;
 	char	**map;
+	t_cont	content;
 	int		count;
 }	t_data;
+
 
 char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);

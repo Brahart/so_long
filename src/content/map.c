@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/18 01:03:08 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2024/12/18 12:41:12 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 char	*ft_extract_map(int fd)
 {
 	
 }
 
-char	**ft_parse_map(int fd, char *data)
+char	**ft_parse_map(int fd, t_data *data)
 {
 	int	i;
 
@@ -34,16 +34,16 @@ char	**ft_verif_map(char **arg, t_data *data)
 	int	fd;
 
 	fd = 0;
-	fd = open(str[1], O_RDONLY);
+	fd = open(arg[1], O_RDONLY);
 	if (fd > 0)
 		data->map = parse_map(fd, data);
 	else
-		return(ft_printf("Error\nCan't open file\n"));
+		return(ft_error("Error\nCan't open file\n"));
 	if ((data->content.count_c == 0 || data->content.count_e != 1
-		|| data->count_p != 1) && data->map)
+		|| data->content.count_p != 1) && data->map)
 	{
 		ft_free_map(data);
-		return(ft_printf("Error\nNeed 1 Player, 1 Exit and at least 1 Object\n"));
+		return(ft_error("Error\nNeed 1 Player, 1 Exit and at least 1 Object\n"));
 	}
 	return(data->map);
 }
