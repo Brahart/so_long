@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/18 12:41:12 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/19 00:00:41 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,43 @@
 
 char	*ft_extract_map(int fd)
 {
-	
+	char	*line;
+	char	*buffer;
+	char	*tmp_buffer;
+	int		char_read;
+
+	line = ft_strdup("");
+	buffer = ft_strdup("");
+	if (fd > 0)
+	{
+		while (buffer)
+		{
+			buffer = gnl(fd);
+			line = ft_strjoin(line, buffer);
+			free(buffer);
+			buffer = ft_strdup("");
+		}
+		return(buffer);
+	}
+	ft_error("ERROR\nLecture map has failed");
+	return(NULL);
+}
+
+
+void	ft_free_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map[i])
+	{
+		free (data->map[i]);
+		data->map[i] = NULL;
+		i++;
+	}
+	free(data->map);
+	data->map = NULL;
+	return(0);
 }
 
 char	**ft_parse_map(int fd, t_data *data)
@@ -23,10 +59,23 @@ char	**ft_parse_map(int fd, t_data *data)
 
 	i = 0;
 	data->map = ft_split(ft_extract_map(fd), '\n');
-	// faire une fonction pour verifier qu'il y a bien le nombre de player, exit et collectible needed
-	// fonction pour checker si c est un rectangle
-	// fonction pour check si il y a bien des murs autour de la map (ligne et colonne)
-	//  fonction qui check qu'il n'y ai pas d'autres element que 1, 0, C, E, P
+	ft_check_content(data);
+	if (!ft_check_line(data->map[0], data->content.wall))
+		return (ft_free_map(data));
+	if (!ft_check_is_rectangle(data->map))
+		return (ft_free_map(data));
+	while (data->map[i])
+	{
+		if (!ft_check_column(data->map[i], data->content.wall))
+			return (ft_free_map(data));
+		if (!ft_check_content_map(data->map[i], data->content)
+			return (ft_free_map(data));
+		i++;
+	}
+	if (!ft_check_line(data->map[i - 1], data->content.wall))
+		return (ft_free_map(data));
+	return (data->map);
+	
 }
 
 char	**ft_verif_map(char **arg, t_data *data)
@@ -38,44 +87,12 @@ char	**ft_verif_map(char **arg, t_data *data)
 	if (fd > 0)
 		data->map = parse_map(fd, data);
 	else
-		return(ft_error("Error\nCan't open file\n"));
+		return(ft_error("ERROR\nCan't open file"));
 	if ((data->content.count_c == 0 || data->content.count_e != 1
 		|| data->content.count_p != 1) && data->map)
 	{
 		ft_free_map(data);
-		return(ft_error("Error\nNeed 1 Player, 1 Exit and at least 1 Object\n"));
+		return(ft_error("ERROR\nNeed 1 Player, 1 Exit and at least 1 Object"));
 	}
 	return(data->map);
 }
-
-// char	**extract_map()
-// {
-// 	int 	fd;
-// 	char	*storage;
-// 	char	**map;
-	
-// 	fd = open("map.ber", O_RDONLY);
-	
-// }
-
-// int main(void)
-// {
-// 	ft_printf("\e[4;31mSalut %s", "toi");
-// 	return(0);
-// }
-
-// is the map is surrounded by wall ?
-
-// is the map is rectangular ?
-
-// is the maps line have same lenght ?
-
-// is the file have map ?
-
-// the map must have 1 E and 1 P ?
-
-// the map must have at least 1 C ?
-
-// is the E is available by the P ?
-
-// is the C are whithin reach of P ?

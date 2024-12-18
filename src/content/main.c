@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/18 19:33:40 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/19 00:06:19 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int main(int ac, char **av)
 {
+	t_data	*data;
 	if (ac != 2)
 		ft_error("Error\nThe number of arguments is invalid");
-	set_content()
+	set_content(data->content);
+	data->map = ft_verif_map(argv, data);
 	return(0);
 }

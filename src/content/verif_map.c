@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/18 20:57:03 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/18 23:36:07 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ void	ft_check_content(t_data *data)
 		j = 0;
 		i++;
 	}
+}
+
+int	ft_check_content_map(char *line, t_cont content)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (content->count_p > 1)
+			return(ft_error("ERROR\nToo many PLAYER"), 0);
+		if (content->count_e > 1)
+			return (ft_error("ERROR\nToo many EXIT"), 0);
+		if ((line[i] != content->wall) || (line[i] != content->space) 
+			|| (line[i] != content->player) || (line[i] != content->exit) 
+			|| (line[i] != content->collectible))
+			{
+				ft_error("ERROR\nThe map contains wrong arguments");
+				return (0);
+			}
+			i++;
+	}
+	return (1);
 }
 
 int	ft_check_column(char *line, char wall)
@@ -88,13 +111,3 @@ int	ft_check_is_rectangle(char **map)
 		return (ft_error("ERROR\nThe map must be a rectangle"), 0);
 	return (1);
 }
-
-/* 	faire une fonction pour verifier qu'il y a bien le nombre de player, 
-	exit et collectible needed
-	
-	fonction pour checker si c est un rectangle
-	
-	fonction pour check si il y a bien des murs 
-	autour de la map (ligne et colonne)
-	
-	fonction qui check qu'il n'y ai pas d'autres element que 1, 0, C, E, P */

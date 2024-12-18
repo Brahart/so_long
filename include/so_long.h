@@ -36,5 +36,10 @@ char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);
 char	**ft_split(const char *s, char c);
 size_t	ft_strlen(const char *str);
+void	ft_check_content(t_data *data);
+int		ft_check_content_map(char *line, t_cont content);
+int		ft_check_column(char *line, char wall);
+int		ft_check_line(char *line, char wall);
+int		ft_check_is_rectangle(char **map);
 
 #endif
