@@ -3,39 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/12 15:51:55 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/18 01:03:08 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int	ft_verif_map(int fd)
+char	*ft_extract_map(int fd)
 {
-	char	**map;
-	char	*tmp2;
-	char	*tmp1;
-	int		i;
-	int		j;
+	
+}
+
+char	**ft_parse_map(int fd, char *data)
+{
+	int	i;
 
 	i = 0;
-	j = 0;
-	while(tmp1 = get_next_line(fd))
-		tmp1 = ft_strjoin(tmp2, tmp1);
-	map = ft_split(tmp1, "\n");
-	while(map[i][j])
+	data->map = ft_split(ft_extract_map(fd), '\n');
+	// faire une fonction pour verifier qu'il y a bien le nombre de player, exit et collectible needed
+	// fonction pour checker si c est un rectangle
+	// fonction pour check si il y a bien des murs autour de la map (ligne et colonne)
+	//  fonction qui check qu'il n'y ai pas d'autres element que 1, 0, C, E, P
+}
+
+char	**ft_verif_map(char **arg, t_data *data)
+{
+	int	fd;
+
+	fd = 0;
+	fd = open(str[1], O_RDONLY);
+	if (fd > 0)
+		data->map = parse_map(fd, data);
+	else
+		return(ft_printf("Error\nCan't open file\n"));
+	if ((data->content.count_c == 0 || data->content.count_e != 1
+		|| data->count_p != 1) && data->map)
 	{
-		if(map[0][j] == 0);
-			return(ft_printf("Invalid map"), NULL);
-		if(map[ft_strlen(*map[i])][j] == 0)
-			return(ft_printf("Invalid map"), NULL);
-		if(map[i][0] == 0)
-			return(ft_printf("Invalid map"), NULL);
-		if(map[0][ft_strlen(map[i][j])] == 0);
-			return(ft_printf("Invalid map"), NULL);
+		ft_free_map(data);
+		return(ft_printf("Error\nNeed 1 Player, 1 Exit and at least 1 Object\n"));
 	}
+	return(data->map);
 }
 
 // char	**extract_map()

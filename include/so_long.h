@@ -10,6 +10,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef	struct	data_s
+{
+	int		width;
+	int		height;
+	char	**map;
+	int		count;
+}	t_data;
+
 char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);
 char	**ft_split(const char *s, char c);
