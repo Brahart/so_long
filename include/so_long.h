@@ -41,5 +41,11 @@ int		ft_check_content_map(char *line, t_cont content);
 int		ft_check_column(char *line, char wall);
 int		ft_check_line(char *line, char wall);
 int		ft_check_is_rectangle(char **map);
+void	ft_error(char *str);
+void	set_content(t_cont *content);
+char	**ft_verif_map(char **arg, t_data *data);
+char	**ft_parse_map(int fd, t_data *data);
+void	ft_free_map(t_data *data);
+char	*ft_extract_map(int fd);
 
 #endif

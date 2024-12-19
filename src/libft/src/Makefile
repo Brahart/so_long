@@ -64,8 +64,6 @@ OBJMANDATORY = $(SRCMANDATORY:%.c=$(OBJ_DIR)%.o)
 
 OBJBONUS = $(SRCBONUS:.c=.o)
 
-NAME_DIR = ../../../head
-
 all: $(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEAD)
@@ -73,8 +71,7 @@ $(OBJ_DIR)%.o: %.c $(HEAD)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJMANDATORY)
-	@mkdir -p $(NAME_DIR)
-	@ar -rcs $(NAME_DIR)/$(NAME) $(OBJMANDATORY)
+	@ar -rcs $(NAME) $(OBJMANDATORY)
 
 bonus:
 	$(MAKE) SRCMANDATORY="$(SRCMANDATORY) $(SRCBONUS)"

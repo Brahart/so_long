@@ -1,81 +1,74 @@
-# --------------------------EXEC AND COMPILATION---------------------------- #
+NAME		=	so_long
 
-EXEC = so_long
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
-INCLUDE_DIR = include/
+CC			=	gcc
+FLAG		=	-Wall -Wextra -Werror
 
-# ------------------------SOURCES AND OBJS DIRECTORY------------------------ #
+LIBFT_PATH	=	./src/libft/src/
 
-CONT_DIR = ./src/content/
-SRC_MANDATORY =	error_free.c \
-				parsing.c \
-				test.c \
-				main.c
+LIBFT_FILE	=	libft.a
 
-SRC = $(addprefix $(CONT_DIR), $(SRC_MANDATORY))
-OBJ_DIR = so_obj/
-OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
+MLX_FILE	=	libmlx.a
 
-# ------------------------------SOURCE FILES------------------------------- #
+LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
 
-MLX_DIR = minilibx-linux/
-MLX = libmlx_Linux.a
-MLX_NAME = $(addprefix $(MLX_DIR), $(MLX))
-MLX_FLAG = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -I $(MLX_DIR) -lXext -lX11 -lm -lz $(MLX)
-MLX_EXEC = $(MLX_NAME) $(MLX_FLAG)
+MLX_FLAG	=	-lX11 -lXext
 
-LIBFT_DIR = src/libft/src
-LIBFT = libft.a
-LIBFT_NAME = $(addprefix $(LIBFT_DIR), $(LIBFT))
-LIBFT_FLAG = -L $(LIBFT_DIR)
+MLX_PATH	=	./minilibx-linux/
 
-# ---------------------------------COMMAND--------------------------------- #
+MLX_LIB		=	$(addprefix $(MLX_PATH), $(MLX_FILE))
 
-all: $(EXEC)
+MLX_EX		=	$(MLX_LIB) $(MLX_FLAG)
 
-# -----------------CALL LIBFT AND MLX------------------ #
+C_FILE		=	map.c \
+				content.c \
+				error_free.c \
+				main.c \
+				map.c
 
-libft:
-	@echo "\e[1;34mCompiling$(LIBFT_DIR)...\e[0m"
-	@make -C $(LIBFT_DIR)
-	@echo "\e[1;92mDone.\e[0m"
+SRC_DIR		=	./src/content/
+
+INC_DIR		=	./includes/
+
+SRC			=	$(addprefix $(SRC_DIR),$(C_FILE))
+
+OBJ			=	$(SRC:.c=.o)
+
+.c.o:
+	$(CC) $(FLAG) -c $< -o $@
+
+all: $(NAME)
+
+lib:
+	@echo "\033[0;33m\nCOMPILING $(LIBFT_PATH)\n"
+	@make -C $(LIBFT_PATH)
+	@echo "\033[1;32mLIBFT_lib created\n"
 
 mlx:
-	@echo "\e[1;34mCompiling $(MLX_DIR)...\e[0m"
-	@make -sC $(MLX_DIR)
-	@echo "\e[1;92mDone.\e[0m"
+	@echo "\033[0;33m\nCOMPILING $(MLX_PATH)...\n"
+	@make -sC $(MLX_PATH)
+	@echo "\033[1;32mMLX_lib created\n"
 
-# -------------------CREATE LIBRARY-------------------- #
-
-$(EXEC): libft mlx $(OBJ)
-	@echo "\e[1;34mCompiling...\n\e[0m"
-	$(CC) $(OBJ) $(LIBFT_NAME) $(MLX_EXEC) -o $(EXEC)
-	@echo "\e[1;92mExecutable $(EXEC) created successfully.\n\e[0m"
-
-# -------------------COMPILATION .o-------------------- #
-
-$(OBJ_DIR)%.o:%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) $(HEAD) -c $< -o $(OBJ_DIR)$(notdir $@)
-
-# ---------------------RULES--------------------- #
+$(NAME): lib mlx $(OBJ)
+	@echo "\033[0;33m\nCOMPILING SO_LONG...\n"
+	$(CC) $(OBJ) $(LIBFT_PATH)$(LIBFT_FILE) $(MLX_PATH)$(MLX_FILE) -o $(NAME)
+	@echo "\033[1;32m./so_long created\n"
 
 clean:
-	@echo "\e[1;34mmDeleting obj in $(MLX_DIR)\n.\e[0m"
-	@make clean -sC $(MLX_DIR)
-	@echo "\e[1;34mDeleting obj in $(LIBFT_DIR).\e[0m"
-	@make clean -sC $(LIBFT_DIR)
-	@echo "\e[1;91mDone.\n\e[0m"
-	@echo "\e[1;34mDeleting obj...\n\e[0m"
-	@rm -rf $(OBJ_DIR)
-	@echo "\e[1;91mDone.\n\e[0m"
+	@echo "\033[0;31mDeleting Obj file in $(MLX_PATH)...\n"
+	@make clean -sC $(MLX_PATH)
+	@echo "\033[0;31mDeleting Obj file in $(LIBFT_PATH)...\n"
+	@make clean -sC $(LIBFT_PATH)
+	@echo "\033[1;32mDone\n"
+	@echo "\033[0;31mDeleting So_long object...\n"
+	@rm -f $(OBJ)
+	@echo "\033[1;32mDone\n"
 
 fclean: clean
-	@echo "\e[1;34mDeleting .a and exec.\n\e[0m"
-	@rm -rf $(EXEC)
-	@echo "\e[1;91mfclean was executed successfully.\e[0m"
+	@echo "\033[0;31mDeleting so_long executable..."
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_PATH)
+	@echo "\033[1;32mDone\n"
 
 re: fclean all
 
-.PHONY: all clean fclean re libft mlx
+.PHONY: all clean fclean re

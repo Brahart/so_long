@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/18 23:36:07 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2024/12/19 13:20:38 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	ft_check_content_map(char *line, t_cont content)
 	i = 0;
 	while (line[i])
 	{
-		if (content->count_p > 1)
+		if (content.count_p > 1)
 			return(ft_error("ERROR\nToo many PLAYER"), 0);
-		if (content->count_e > 1)
+		if (content.count_e > 1)
 			return (ft_error("ERROR\nToo many EXIT"), 0);
-		if ((line[i] != content->wall) || (line[i] != content->space) 
-			|| (line[i] != content->player) || (line[i] != content->exit) 
-			|| (line[i] != content->collectible))
+		if ((line[i] != content.wall) || (line[i] != content.space) 
+			|| (line[i] != content.player) || (line[i] != content.exit) 
+			|| (line[i] != content.collectible))
 			{
 				ft_error("ERROR\nThe map contains wrong arguments");
 				return (0);
