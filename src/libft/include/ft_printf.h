@@ -6,14 +6,14 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:09:59 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/12 19:03:01 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/27 17:11:52 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdio.h>
+# include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -27,7 +27,6 @@ int		ft_print_int(long long int n, char *base);
 int		ft_putstr(char *str);
 int		ft_print_arg(va_list list, char c);
 int		ft_unnum_len(unsigned long long int n, int baselen);
-int		ftt_strlen(char	*s);
-int		ftt_putchar(char c);
+int		ft_putchar(char c);
 
 #endif

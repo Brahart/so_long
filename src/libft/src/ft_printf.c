@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:33:04 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/12 19:03:58 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/27 17:12:59 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_print_arg(va_list list, char c)
 {
 	if (c == 'c')
-		return (ftt_putchar(va_arg(list, int)));
+		return (ft_putchar(va_arg(list, int)));
 	else if (c == 'x')
 		return (ft_print_un(va_arg(list, unsigned int), "0123456789abcdef"));
 	else if (c == 'X')
@@ -27,7 +27,7 @@ int	ft_print_arg(va_list list, char c)
 	else if (c == 's')
 		return (ft_putstr(va_arg(list, char *)));
 	else if (c == '%')
-		return (ftt_putchar('%'));
+		return (ft_putchar('%'));
 	else if (c == 'd')
 		return (ft_print_int(va_arg(list, int), "0123456789"));
 	else if (c == 'i')
@@ -55,7 +55,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			count += ftt_putchar(format[i]);
+			count += ft_putchar(format[i]);
 		}
 		i++;
 	}

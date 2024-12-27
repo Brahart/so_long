@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/19 13:20:38 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/27 17:18:32 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	ft_check_content(t_data *data)
 	{
 		while (data->map[i][j])
 		{
-			if (data->map == data->content.player)
+			if (data->map[i][j] == data->content.player)
 				data->content.count_p += 1;
-			if (data->map == data->content.exit)
+			if (data->map[i][j] == data->content.exit)
 				data->content.count_e += 1;
-			if (data->map == data->content.collectible)
+			if (data->map[i][j] == data->content.collectible)
 				data->content.count_c += 1;
 			j++;
 		}

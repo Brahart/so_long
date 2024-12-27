@@ -1,73 +1,52 @@
-NAME		=	so_long
+EXEC 		= so_long
 
-CC			=	gcc
-FLAG		=	-Wall -Wextra -Werror
+CC 			= gcc
+FLAGS 		= -Wall -Wextra -Werror -g
 
-LIBFT_PATH	=	./src/libft/src/
+HEAD 		= include/so_long.h
 
-LIBFT_FILE	=	libft.a
+LIBFT_DIR 	= src/libft/src/
+LIB_LIBFT 	= $(LIBFT_DIR)libft.a
 
-MLX_FILE	=	libmlx.a
+MLX_DIR 	= minilibx-linux/
+LIB_MLX 	= $(MLX_DIR)libmlx.a
 
-LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
-
-MLX_FLAG	=	-lX11 -lXext
-
-MLX_PATH	=	./minilibx-linux/
-
-MLX_LIB		=	$(addprefix $(MLX_PATH), $(MLX_FILE))
-
-MLX_EX		=	$(MLX_LIB) $(MLX_FLAG)
-
-C_FILE		=	map.c \
-				content.c \
+SRC_DIR 	= src/content/
+SRC_FILE 	=	content.c \
 				error_free.c \
 				main.c \
-				map.c
+				map.c \
+				verif_map.c
 
-SRC_DIR		=	./src/content/
+SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILE))
+OBJ_DIR 	= obj/
+OBJ 		= $(SRC:%.c=%.o)
+OBJ_LIBFT 	= $(OBJ_DIR)*.o
 
-INC_DIR		=	./includes/
 
-SRC			=	$(addprefix $(SRC_DIR),$(C_FILE))
+all: $(LIB_LIBFT) $(LIB_MLX) $(EXEC)
 
-OBJ			=	$(SRC:.c=.o)
+$(OBJ_DIR)%.o: %.c $(HEAD)
+	$(CC) $(FLAGS) -c $< -o $@
 
-.c.o:
-	$(CC) $(FLAG) -c $< -o $@
+$(LIB_LIBFT):
+	make -sC $(LIBFT_DIR)
 
-all: $(NAME)
+$(LIB_MLX):
+	make -sC $(MLX_DIR)
 
-lib:
-	@echo "\033[0;33m\nCOMPILING $(LIBFT_PATH)\n"
-	@make -C $(LIBFT_PATH)
-	@echo "\033[1;32mLIBFT_lib created\n"
-
-mlx:
-	@echo "\033[0;33m\nCOMPILING $(MLX_PATH)...\n"
-	@make -sC $(MLX_PATH)
-	@echo "\033[1;32mMLX_lib created\n"
-
-$(NAME): lib mlx $(OBJ)
-	@echo "\033[0;33m\nCOMPILING SO_LONG...\n"
-	$(CC) $(OBJ) $(LIBFT_PATH)$(LIBFT_FILE) $(MLX_PATH)$(MLX_FILE) -o $(NAME)
-	@echo "\033[1;32m./so_long created\n"
+$(EXEC): $(OBJ)
+	$(CC) $(FLAGS) $(OBJ_LIBFT) $(OBJ) -o $(EXEC)
 
 clean:
-	@echo "\033[0;31mDeleting Obj file in $(MLX_PATH)...\n"
-	@make clean -sC $(MLX_PATH)
-	@echo "\033[0;31mDeleting Obj file in $(LIBFT_PATH)...\n"
-	@make clean -sC $(LIBFT_PATH)
-	@echo "\033[1;32mDone\n"
-	@echo "\033[0;31mDeleting So_long object...\n"
-	@rm -f $(OBJ)
-	@echo "\033[1;32mDone\n"
+	make clean -sC src/libft/src/
+	make clean -sC minilibx-linux/
+	rm -f $(SRC_DIR)*.o
 
 fclean: clean
-	@echo "\033[0;31mDeleting so_long executable..."
-	@rm -f $(NAME)
-	@make fclean -C $(LIBFT_PATH)
-	@echo "\033[1;32mDone\n"
+	rm -f $(LIB_LIBFT)
+	rm -f $(LIB_MLX)
+	rm -f $(EXEC)
 
 re: fclean all
 
