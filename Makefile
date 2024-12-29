@@ -2,6 +2,11 @@ EXEC 		= so_long
 
 CC 			= gcc
 FLAGS 		= -Wall -Wextra -Werror -g
+MLX_FLAGS	= -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+
+# -L is for linking the directory of mlx
+# -lX11 and -lXext is for linking some different graphic library require by the mlx 
+
 
 HEAD 		= include/so_long.h
 
@@ -12,7 +17,7 @@ MLX_DIR 	= minilibx-linux/
 LIB_MLX 	= $(MLX_DIR)libmlx.a
 
 SRC_DIR 	= src/content/
-SRC_FILE 	=	content.c \
+SRC_FILE 	=	set_params.c \
 				error_free.c \
 				main.c \
 				map.c \

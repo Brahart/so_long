@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
+/*   Updated: 2024/12/29 17:30:32 by asinsard         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -10,7 +22,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct	content_s
+typedef struct content_s
 {
 	char	wall;
 	char	space;
@@ -22,15 +34,33 @@ typedef struct	content_s
 	int		count_c;
 }	t_cont;
 
-typedef	struct	data_s
+typedef struct img_s
 {
+	void	*img_wall;
+	void	*img_space;
+	void	*img_player;
+	void	*img_exit;
+	void	*img_collectible;
+	char	*wall;
+	char	*space;
+	char	*player;
+	char	*exit;
+	char	*collectible;
+	int		img_height;
+	int		img_width;
+}	t_image;
+
+typedef struct data_s
+{
+	void	*mlx_ptr;
+	void	*mlx_win;
 	int		width;
 	int		height;
 	char	**map;
 	t_cont	content;
+	t_image	img;
 	int		count;
 }	t_data;
-
 
 char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);
