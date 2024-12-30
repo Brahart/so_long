@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 01:06:48 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2024/12/30 17:57:09 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "../minilibx-linux/mlx.h"
-// # include "../minilibx-linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../src/libft/include/libft.h"
 # include "../src/libft/include/ft_printf.h"
 # include "../src/libft/include/get_next_line.h"
@@ -75,16 +75,25 @@ char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);
 char	**ft_split(const char *s, char c);
 size_t	ft_strlen(const char *str);
-void	ft_check_content(t_data *data);
-int		ft_check_content_map(char *line, t_cont content);
-int		ft_check_column(char *line, char wall);
-int		ft_check_line(char *line, char wall);
-int		ft_check_is_rectangle(char **map);
-void	ft_error(const char *str);
 void	set_content(t_cont *content);
-char	**ft_verif_map(char **arg, t_data *data);
-char	**ft_parse_map(int fd, t_data *data);
-void	ft_free_map(t_data *data);
-char	*ft_extract_map(int fd);
+char	**verif_map(char **arg, t_data *data);
+void	check_content(t_data *data);
+int		check_content_map(char *line, t_cont content);
+int		check_column(char *line, char wall, t_data *data);
+int		check_line(char *line, char wall);
+int		check_is_rectangle(char **map);
+void	free_map(t_data *data);
+void	set_content(t_cont *content);
+void	set_image(t_data *data);
+void	init_window(t_data *data);
+int		end_game(t_data *data);
+int		keyboard_key(int key, t_data *data);
+void	ft_error(const char *str);
+void	rendered_top(t_data *data);
+void	rendered_down(t_data *data);
+void	rendered_right(t_data *data);
+void	rendered_left(t_data *data);
+int		check_collect(t_data *data);
+int		is_ber(char *str, const char *ber);
 
 #endif

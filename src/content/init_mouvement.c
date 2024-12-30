@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mouvement.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
+/*   Updated: 2024/12/30 17:59:00 by asinsard         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long.h"
 
 void	rendered_top(t_data *data)
@@ -20,8 +32,10 @@ void	rendered_top(t_data *data)
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf("Congrats !!! You finished the game in : %d moves !!!\n", data->count);
-				end(data);
+				ft_printf(
+					"Congrats !!! You finished the game in : %d moves !!!\n",
+					data->count);
+				end_game(data);
 			}
 		}
 	}
@@ -47,8 +61,10 @@ void	rendered_down(t_data *data)
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf("Congrats !!! You finished the game in : %d moves !!!\n", data->count);
-				end(data);
+				ft_printf(
+					"Congrats !!! You finished the game in : %d moves !!!\n",
+					data->count);
+				end_game(data);
 			}
 		}
 	}
@@ -74,8 +90,10 @@ void	rendered_right(t_data *data)
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf("Congrats !!! You finished the game in : %d moves !!!\n", data->count);
-				end(data);
+				ft_printf(
+					"Congrats !!! You finished the game in : %d moves !!!\n",
+					data->count);
+				end_game(data);
 			}
 		}
 	}
@@ -101,8 +119,10 @@ void	rendered_left(t_data *data)
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf("Congrats !!! You finished the game in : %d moves !!!\n", data->count);
-				end(data);
+				ft_printf(
+					"Congrats !!! You finished the game in : %d moves !!!\n",
+					data->count);
+				end_game(data);
 			}
 		}
 	}

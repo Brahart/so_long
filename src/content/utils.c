@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
+/*   Updated: 2024/12/30 17:57:18 by asinsard         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long.h"
 
 int	end_game(t_data *data)
@@ -51,7 +63,7 @@ int	check_collect(t_data *data)
 int	keyboard_key(int key, t_data *data)
 {
 	if (key == XK_Escape)
-		end(data);
+		end_game(data);
 	if (key == XK_w)
 		rendered_top(data);
 	if (key == XK_s)
@@ -69,4 +81,25 @@ void	ft_error(const char *str)
 		ft_printf("Error ft_error.\n");
 	else
 		ft_printf(str);
+}
+
+int	is_ber(char *str, const char *ber)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		while (str[i + j] == ber[j])
+		{
+			j++;
+			if (ber[j] == '\0')
+				return (1);
+		}
+		j = 0;
+		i++;
+	}
+	return (0);
 }

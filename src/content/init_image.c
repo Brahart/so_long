@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_image.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
+/*   Updated: 2024/12/30 21:32:23 by asinsard         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long.h"
 
 void	print_img(t_data *data, void *img, int x, int y)
 {
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img, (data->img.img_width * x), data->img.img_height * y);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img,
+		(data->img.img_width * x),
+		data->img.img_height * y);
 }
 
 void	rendered_background(t_data *data)
@@ -19,12 +33,12 @@ void	rendered_background(t_data *data)
 			if (data->map[i][j] == data->content.wall)
 				print_img(data, data->img.img_wall, j, i);
 			if (data->map[i][j] == data->content.space)
-				print_img(data, data->img.img_wall, j, i);
+				print_img(data, data->img.img_space, j, i);
 			j++;
 		}
+		j = 0;
+		i++;
 	}
-	j = 0;
-	i++;
 }
 
 void	rendered_other(t_data *data)
@@ -41,7 +55,7 @@ void	rendered_other(t_data *data)
 			if (data->map[i][j] == data->content.player)
 			{
 				data->pos.x = j * data->img.img_width;
-				data->pos.x = j * data->img.img_height;
+				data->pos.y = i * data->img.img_height;
 				print_img(data, data->img.img_player, j, i);
 			}
 			if (data->map[i][j] == data->content.collectible)
@@ -55,18 +69,23 @@ void	rendered_other(t_data *data)
 	}
 }
 
-int	rendered(t_data data)
+int	rendered(t_data *data)
 {
-	rendered_background(&data);
-	rendered_other(&data);
-	return(0);
+	rendered_background(data);
+	rendered_other(data);
+	return (0);
 }
 
 void	init_window(t_data *data)
 {
-	data->mlx_win = mlx_new_window(data->mlx_ptr, (data->width * data->img.img_width), (data->height * data->img.img_height), "so_long");
+	data->mlx_win = mlx_new_window(data->mlx_ptr,
+			(data->width * data->img.img_width),
+			(data->height * data->img.img_height), "so_long");
 	if (!data->mlx_win)
-		return (free(data->mlx_win));
+	{
+		free(data->mlx_ptr);
+		return ;
+	}
 	mlx_loop_hook(data->mlx_ptr, &rendered, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &keyboard_key, data);
 	mlx_hook(data->mlx_win, 17, 0, &end_game, data);

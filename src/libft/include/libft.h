@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:24:06 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/11 21:20:44 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/30 18:01:48 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "ft_printf.h"
+# include "get_next_line.h"
 
 int					ft_atoi(const char *nptr);
 void				ft_bzero(void *s, size_t n);
