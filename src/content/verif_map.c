@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/27 17:18:32 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/30 01:43:27 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-void	ft_check_content(t_data *data)
+void	check_content(t_data *data)
 {
 	int	i;
 	int	j;
@@ -36,7 +36,7 @@ void	ft_check_content(t_data *data)
 	}
 }
 
-int	ft_check_content_map(char *line, t_cont content)
+int	check_content_map(char *line, t_cont content)
 {
 	int	i;
 
@@ -59,17 +59,23 @@ int	ft_check_content_map(char *line, t_cont content)
 	return (1);
 }
 
-int	ft_check_column(char *line, char wall)
+int	check_column(char *line, char wall, t_data *data)
 {
-	if (line[0] != wall || line[ft_strlen(line) - 1] != wall)
+	int	i;
+	
+	i = 0;
+	while(map[i])
+		i++;
+	if (line[0] != wall || line[i - 1] != wall)
 	{
 		ft_error("Error\nThe map is invalid");
 		return (0);
 	}
+	data->width = i;
 	return (1);
 }
 
-int	ft_check_line(char *line, char wall)
+int	check_line(char *line, char wall)
 {
 	int	i;
 
@@ -86,7 +92,7 @@ int	ft_check_line(char *line, char wall)
 	return (1);
 }
 
-int	ft_check_is_rectangle(char **map)
+int	check_is_rectangle(char **map)
 {
 	int			i;
 	int			j;

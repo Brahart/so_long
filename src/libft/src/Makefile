@@ -80,7 +80,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(NAME_DIR)
+	@rm -rf $(NAME)
 
 re: fclean all
 

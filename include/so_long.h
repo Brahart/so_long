@@ -3,24 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/29 17:30:32 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/30 01:06:48 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+// # include "../minilibx-linux/mlx.h"
+// # include "../minilibx-linux/mlx_int.h"
 # include "../src/libft/include/libft.h"
 # include "../src/libft/include/ft_printf.h"
 # include "../src/libft/include/get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+
+typedef struct player_pos_s
+{
+	int	x;
+	int	y;
+}	t_player_pos;
 
 typedef struct content_s
 {
@@ -52,14 +60,15 @@ typedef struct img_s
 
 typedef struct data_s
 {
-	void	*mlx_ptr;
-	void	*mlx_win;
-	int		width;
-	int		height;
-	char	**map;
-	t_cont	content;
-	t_image	img;
-	int		count;
+	void			*mlx_ptr;
+	void			*mlx_win;
+	int				width;
+	int				height;
+	char			**map;
+	t_cont			content;
+	t_image			img;
+	t_player_pos	pos;
+	int				count;
 }	t_data;
 
 char	*get_next_line(int fd);
