@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 20:21:26 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/31 00:20:44 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	check_content(t_data *data)
 			if (data->map[i][j] == data->content.player)
 				data->content.count_p += 1;
 			if (data->map[i][j] == data->content.exit)
-				data->content.count_e += 1;
+				data->content.count_ex += 1;
 			if (data->map[i][j] == data->content.collectible)
 				data->content.count_c += 1;
+			if (data->map[i][j] == data->content.collectible)
+				data->content.count_en += 1;
 			j++;
 		}
 		j = 0;
@@ -45,11 +47,11 @@ int	check_content_map(char *line, t_cont content)
 	{
 		if (content.count_p > 1)
 			return (ft_error("ERROR\nToo many PLAYER"), 0);
-		if (content.count_e > 1)
+		if (content.count_ex > 1)
 			return (ft_error("ERROR\nToo many EXIT"), 0);
 		if ((line[i] != content.wall) && (line[i] != content.space)
 			&& (line[i] != content.player) && (line[i] != content.exit)
-			&& (line[i] != content.collectible))
+			&& (line[i] != content.collectible) && (line[i] != content.ennemy))
 		{
 			ft_error("ERROR\nThe map contains unknown arguments");
 			return (0);

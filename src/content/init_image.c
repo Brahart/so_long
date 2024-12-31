@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 21:32:23 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/31 02:00:38 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,16 @@ void	rendered_other(t_data *data)
 
 int	rendered(t_data *data)
 {
+	t_ennemy	*enemy;
+	
+	ennemy = NULL;
 	rendered_background(data);
 	rendered_other(data);
+	if (data->content.count_en)
+	{
+		ennemy = malloc(sizeof(t_enemy) * data.count_en);
+		rendered_enemy(data);
+	}
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 16:16:11 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/31 00:13:20 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 		data.map = verif_map(av, &data);
 		if (data.map)
 		{
-			set_image(&data);
+			set_assets(&data);
 			init_window(&data);
 		}
 		else

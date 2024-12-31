@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 20:22:20 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2024/12/31 00:08:16 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**verif_map(char **arg, t_data *data)
 			data->map = parse_map(fd, data);
 		else
 			return (ft_error("ERROR\nCan't open file"), NULL);
-		if ((data->content.count_c == 0 || data->content.count_e != 1
+		if ((data->content.count_c == 0 || data->content.count_ex != 1
 				|| data->content.count_p != 1) && data->map)
 		{
 			free_map(data);
