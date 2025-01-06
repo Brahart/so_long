@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/31 00:08:16 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 17:32:15 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*extract_map(int fd)
 		}
 		return (line);
 	}
-	ft_error("ERROR\nLecture map has failed");
+	ft_error("\e[1;31mERROR\nLecture map has failed");
 	return (NULL);
 }
 
@@ -80,7 +80,7 @@ char	**verif_map(char **arg, t_data *data)
 	fd = 0;
 	data->map = NULL;
 	if (!is_ber(arg[1], ".ber"))
-		return (ft_error("ERROR\nMap argument is invalid"), NULL);
+		return (ft_error("\e[1;31mERROR\nMap argument is invalid"), NULL);
 	else
 	{
 		fd = open(arg[1], O_RDONLY);
@@ -93,7 +93,7 @@ char	**verif_map(char **arg, t_data *data)
 		{
 			free_map(data);
 			return (ft_error(
-					"ERROR\nNeed 1 Player, 1 Exit and at least 1 Object"),
+					"\e[1;31mERROR\nNeed 1 Player/Exit and at least 1 Object"),
 				NULL);
 		}
 	}

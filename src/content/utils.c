@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 17:57:18 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 17:27:52 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	keyboard_key(int key, t_data *data)
 void	ft_error(const char *str)
 {
 	if (!str)
-		ft_printf("Error ft_error.\n");
+		ft_printf("\e[1;31mError ft_error.\n");
 	else
 		ft_printf(str);
 }

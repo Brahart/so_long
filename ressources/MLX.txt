@@ -62,6 +62,13 @@ mlx_put_image_to_window:	Cette fonction permet d'afficher une image definit
 							mlx_xpm_file_to_image.
 							x et y: position ou l'image sera affiche dans la fenetre.
 
+mlx_get_data_addr:	Cette fonction permet de recuperer une image precise a partir d'un
+					fichier qui contient plusieurs images.
+
+					char	*mlx_get_data_addr(void *img, int *bits_per_pixel,
+											   int *size_line, int *endian);
+					
+
 
 mlx_destroy_window:	Cette fonction ferme la fenetre cree auparavant, libere les 
 					ressources associees a la fenetre et ferme la connexion a la 

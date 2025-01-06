@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 17:59:00 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 17:33:37 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@ void	rendered_top(t_data *data)
 			data->map[pos_y - 1][pos_x] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count++;
-			ft_printf("step: %d\n", data->count);
+			ft_printf("\e[1;34mstep: %d\n", data->count);
 		}
 		else
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf(
-					"Congrats !!! You finished the game in : %d moves !!!\n",
-					data->count);
+				ft_win(data->count);
 				end_game(data);
 			}
 		}
@@ -55,15 +53,13 @@ void	rendered_down(t_data *data)
 			data->map[pos_y + 1][pos_x] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count++;
-			ft_printf("step: %d\n", data->count);
+			ft_printf("\e[1;34mstep: %d\n", data->count);
 		}
 		else
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf(
-					"Congrats !!! You finished the game in : %d moves !!!\n",
-					data->count);
+				ft_win(data->count);
 				end_game(data);
 			}
 		}
@@ -84,15 +80,13 @@ void	rendered_right(t_data *data)
 			data->map[pos_y][pos_x + 1] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count++;
-			ft_printf("step: %d\n", data->count);
+			ft_printf("\e[1;34mstep: %d\n", data->count);
 		}
 		else
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf(
-					"Congrats !!! You finished the game in : %d moves !!!\n",
-					data->count);
+				ft_win(data->count);
 				end_game(data);
 			}
 		}
@@ -113,15 +107,13 @@ void	rendered_left(t_data *data)
 			data->map[pos_y][pos_x - 1] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count++;
-			ft_printf("step: %d\n", data->count);
+			ft_printf("\e[1;34mstep: %d\n", data->count);
 		}
 		else
 		{
 			if (check_collect(data) == 0)
 			{
-				ft_printf(
-					"Congrats !!! You finished the game in : %d moves !!!\n",
-					data->count);
+				ft_win(data->count);
 				end_game(data);
 			}
 		}

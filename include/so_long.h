@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/31 01:41:48 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 18:22:56 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define ENNEMY 30
+# define ENEMY_MAX 30
 
-// # include "../minilibx-linux/mlx.h"
-// # include "../minilibx-linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../src/libft/include/libft.h"
 # include "../src/libft/include/ft_printf.h"
 # include "../src/libft/include/get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-// # include <X11/keysym.h>
-// # include <X11/X.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 typedef struct pos_s
 {
@@ -40,6 +40,16 @@ typedef struct enemy_s
     int 	speed;
 	t_pos	pos;
 }	t_enemy;
+
+typedef struct player_s 
+{
+	int		line;
+	int		col;
+    int		width;
+	int		height;
+	t_pos	pos;
+}	t_player;
+
 
 typedef struct content_s
 {
@@ -68,6 +78,7 @@ typedef struct img_s
 	char	*player;
 	char	*exit;
 	char	*collectible;
+	char	*enemy;
 	int		img_height;
 	int		img_width;
 }	t_image;
@@ -82,7 +93,8 @@ typedef struct data_s
 	t_cont		content;
 	t_image		img;
 	t_pos		pos;
-	t_enemy	enemy;
+	t_enemy		*enemy;
+	t_player	player;
 	int			count;
 }	t_data;
 
@@ -104,11 +116,14 @@ void	init_window(t_data *data);
 int		end_game(t_data *data);
 int		keyboard_key(int key, t_data *data);
 void	ft_error(const char *str);
+void	print_img(t_data *data, void *img, int x, int y);
 void	rendered_top(t_data *data);
 void	rendered_down(t_data *data);
 void	rendered_right(t_data *data);
 void	rendered_left(t_data *data);
 int		check_collect(t_data *data);
 int		is_ber(char *str, const char *ber);
+void	rendered_enemy(t_data *data);
+void	ft_win(int moves);
 
 #endif

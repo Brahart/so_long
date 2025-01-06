@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/31 02:00:38 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 20:10:41 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ void	rendered_other(t_data *data)
 
 int	rendered(t_data *data)
 {
-	t_ennemy	*enemy;
+	t_enemy	*enemy;
 	
-	ennemy = NULL;
+	enemy = NULL;
 	rendered_background(data);
 	rendered_other(data);
 	if (data->content.count_en)
 	{
-		ennemy = malloc(sizeof(t_enemy) * data.count_en);
+		enemy = malloc(sizeof(t_enemy) * data->content.count_en);
 		rendered_enemy(data);
 	}
 	return (0);
@@ -95,7 +95,7 @@ void	init_window(t_data *data)
 		return ;
 	}
 	mlx_loop_hook(data->mlx_ptr, &rendered, data);
-	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &keyboard_key, data);
+	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &keyboard_key, data);
 	mlx_hook(data->mlx_win, 17, 0, &end_game, data);
 	mlx_loop(data->mlx_ptr);
 	end_game(data);

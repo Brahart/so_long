@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/31 00:20:44 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 17:24:59 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int	check_content_map(char *line, t_cont content)
 	while (line[i])
 	{
 		if (content.count_p > 1)
-			return (ft_error("ERROR\nToo many PLAYER"), 0);
+			return (ft_error("\e[1;31mERROR\nToo many PLAYER"), 0);
 		if (content.count_ex > 1)
 			return (ft_error("ERROR\nToo many EXIT"), 0);
 		if ((line[i] != content.wall) && (line[i] != content.space)
 			&& (line[i] != content.player) && (line[i] != content.exit)
-			&& (line[i] != content.collectible) && (line[i] != content.ennemy))
+			&& (line[i] != content.collectible) && (line[i] != content.enemy))
 		{
-			ft_error("ERROR\nThe map contains unknown arguments");
+			ft_error("\e[1;31mERROR\nThe map contains unknown arguments");
 			return (0);
 		}
 		i++;
@@ -70,7 +70,7 @@ int	check_column(char *line, char wall, t_data *data)
 		i++;
 	if (line[0] != wall || line[i - 1] != wall)
 	{
-		ft_error("ERROR\nThe map is invalid");
+		ft_error("\e[1;31mERROR\nThe map is invalid");
 		return (0);
 	}
 	data->width = i;
@@ -86,7 +86,7 @@ int	check_line(char *line, char wall)
 	{
 		if (line[i] != wall)
 		{
-			ft_error("ERROR\nThe map is invalid");
+			ft_error("\e[1;31mERROR\nThe map is invalid");
 			return (0);
 		}
 		i++;
@@ -111,11 +111,11 @@ int	check_is_rectangle(char **map)
 			j++;
 		if (j != count)
 			return (ft_error(
-					"ERROR\nThe line doesn't have the same length"), 0);
+					"\e[1;31mERROR\nThe line doesn't have the same length"), 0);
 		j = 0;
 		i++;
 	}
 	if (i == j)
-		return (ft_error("ERROR\nThe map must be a rectangle"), 0);
+		return (ft_error("\e[1;31mERROR\nThe map must be a rectangle"), 0);
 	return (1);
 }
