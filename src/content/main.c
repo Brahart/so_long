@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/06 17:25:42 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 18:03:40 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 		{
 			set_assets(&data);
 			init_window(&data);
+			free(data.map);
 		}
 		else
 			end_game(&data);

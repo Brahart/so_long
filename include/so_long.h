@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/06 18:22:56 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 16:57:41 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 typedef struct pos_s
 {
+	int	up;
+	int	down;
+	int	left;
+	int	right;
 	int	x;
 	int	y;
 }	t_pos;
@@ -124,6 +128,7 @@ void	rendered_left(t_data *data);
 int		check_collect(t_data *data);
 int		is_ber(char *str, const char *ber);
 void	rendered_enemy(t_data *data);
+void	print_img(t_data *data, void *img, int x, int y);
 void	ft_win(int moves);
 
 #endif

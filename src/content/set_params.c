@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/06 20:23:31 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 17:50:11 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	set_assets(t_data *data)
 	data->img.img_width = 1080;
 	data->img.space = "assets/floor.xpm";
 	data->img.wall = "assets/wall.xpm";
-	data->img.enemy = "assets/enemy1.xpm";
+	data->img.enemy = "assets/enemy.xpm";
 	data->img.collectible = "assets/collectible.xpm";
-	data->img.player = "assets/player.xpm";
+	data->img.player = "assets/player/player_down.xpm";
 	data->img.exit = "assets/exit.xpm";
 	set_image(data);
 }
