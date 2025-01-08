@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_params.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/07 17:50:11 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 23:17:17 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,28 @@ void	set_content(t_cont *content)
 	content->count_en = 0;
 }
 
-void	set_image(t_data *data)
-{
-	data->img.img_space = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.space,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_wall = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.wall,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_collectible = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.collectible,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_player = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.player,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_exit = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.exit,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_enemy = mlx_xpm_file_to_image(
-			data->mlx_ptr, data->img.enemy,
-			&data->img.img_width, &data->img.img_height);
-}
-
 void	set_assets(t_data *data)
 {
-	data->img.img_height = 1920;
-	data->img.img_width = 1080;
-	data->img.space = "assets/floor.xpm";
-	data->img.wall = "assets/wall.xpm";
-	data->img.enemy = "assets/enemy.xpm";
-	data->img.collectible = "assets/collectible.xpm";
-	data->img.player = "assets/player/player_down.xpm";
-	data->img.exit = "assets/exit.xpm";
-	set_image(data);
+	data->floor = set_sprites(data->mlx_ptr, FLOOR, data);
+	data->wall = set_sprites(data->mlx_ptr, WALL, data);
+	data->enemy = set_sprites(data->mlx_ptr, ENEMY, data);
+	data->collectible = set_sprites(data->mlx_ptr, COLLECTIBLE, data);
+	data->exit = set_sprites(data->mlx_ptr, EXIT, data);
+	data->exit_open = set_sprites(data->mlx_ptr, EXIT_OPEN, data);
+	data->player_up = set_sprites(data->mlx_ptr, PLAYER_UP, data);
+	data->player_down = set_sprites(data->mlx_ptr, PLAYER_DOWN, data);
+	data->player_left = set_sprites(data->mlx_ptr, PLAYER_LEFT, data);
+	data->player_right = set_sprites(data->mlx_ptr, PLAYER_RIGHT, data);
+}
+
+t_image	set_sprites(void *mlx_ptr, char *xpm, t_data *data)
+{
+	t_image	image;
+	
+	image.img_height = IMG_HEIGHT;
+	image.img_width = IMG_WIDTH;
+	image.sprite = mlx_xpm_file_to_image(mlx_ptr, xpm, &image.img_width, &image.img_height);
+	return (image);
 }
 
 void	ft_win(int moves)

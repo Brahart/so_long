@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/07 18:10:46 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 00:11:17 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,13 @@ int	keyboard_key(int key, t_data *data)
 	if (key == XK_Escape)
 		end_game(data);
 	if (key == XK_w || key == XK_Up)
-	{
-		rendered_top(data);
-		data->player.pos.up = 1;
-	}
+		rendered_player(data, data->player.pos.y - 1, data->player.pos.x, UP);
 	if (key == XK_s || key == XK_Down)
-	{
-		rendered_down(data);
-		data->player.pos.down = 1;
-	}
+		rendered_player(data, data->player.pos.y + 1, data->player.pos.x, DOWN);
 	if (key == XK_a || key == XK_Left)
-	{
-		rendered_left(data);
-		data->player.pos.left = 1;
-	}
+		rendered_player(data, data->player.pos.y, data->player.pos.x - 1, LEFT);
 	if (key == XK_d || key == XK_Right)
-	{
-		rendered_right(data);
-		data->player.pos.right = 1;
-	}
+		rendered_player(data, data->player.pos.y, data->player.pos.x + 1, RIGHT);
 	return (1);
 }
 

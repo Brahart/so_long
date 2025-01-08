@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/07 18:03:40 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 23:24:56 by abrahamsins      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	main(int ac, char **av)
 	{
 		data.count = 0;
 		data.mlx_ptr = mlx_init();
+		if (!data.mlx_ptr)
+			free (data.mlx_ptr);
 		set_content(&data.content);
 		data.map = verif_map(av, &data);
 		if (data.map)
 		{
 			set_assets(&data);
 			init_window(&data);
-			free(data.map);
 		}
 		else
 			end_game(&data);
