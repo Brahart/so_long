@@ -3,45 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 00:59:41 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 20:08:23 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "../minilibx-linux/mlx.h"
-// # include "../minilibx-linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../src/libft/include/libft.h"
 # include "../src/libft/include/ft_printf.h"
 # include "../src/libft/include/get_next_line.h"
-# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-// # include <X11/keysym.h>
-// # include <X11/X.h>
-
-# define IMG_HEIGHT 64
-# define IMG_WIDTH 64
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 # define FLOOR "assets/floor.xpm"
 # define WALL "assets/wall.xpm"
 # define ENEMY "assets/enemy.xpm"
 # define COLLECTIBLE "assets/collectible.xpm"
 # define EXIT "assets/exit.xpm"
-# define EXIT_OPEN "assets/exit.xpm"
+# define EXIT_OPEN "assets/exit_open.xpm"
 # define PLAYER_UP "assets/player/player_up.xpm"
 # define PLAYER_DOWN "assets/player/player_down.xpm"
 # define PLAYER_LEFT "assets/player/player_left.xpm"
 # define PLAYER_RIGHT "assets/player/player_right.xpm"
-
-# define UP 1
-# define DOWN 2
-# define LEFT 3
-# define RIGHT 4
 
 typedef struct pos_s
 {
@@ -53,25 +44,24 @@ typedef struct pos_s
 	int	y;
 }	t_pos;
 
-typedef struct enemy_s 
+typedef struct enemy_s
 {
-    int		x;
+	int		x;
 	int		y;
-    int		direction_x;
-    int		direction_y;
-    int 	speed;
+	int		direction_x;
+	int		direction_y;
+	int		speed;
 	t_pos	pos;
 }	t_enemy;
 
-typedef struct player_s 
+typedef struct player_s
 {
 	int		line;
 	int		col;
-    int		width;
+	int		width;
 	int		height;
 	t_pos	pos;
 }	t_player;
-
 
 typedef struct content_s
 {
@@ -89,7 +79,6 @@ typedef struct content_s
 
 typedef struct img_s
 {
-	void	*sprite;
 	void	*img_wall;
 	void	*img_space;
 	void	*img_player;
@@ -113,51 +102,45 @@ typedef struct data_s
 	int			width;
 	int			height;
 	char		**map;
-	int			player_render;
 	t_cont		content;
 	t_image		img;
-	t_image		floor;
-	t_image		wall;
-	t_image		enemy;
-	t_image		collectible;
-	t_image		exit;
-	t_image		exit_open;
-	t_image		player_up;
-	t_image		player_down;
-	t_image		player_left;
-	t_image		player_right;
 	t_pos		pos;
 	t_enemy		*enemy;
 	t_player	player;
 	int			count;
 }	t_data;
 
+			/* LIBFT */
 char	*get_next_line(int fd);
 int		ft_printf(const char *format, ...);
 char	**ft_split(const char *s, char c);
 size_t	ft_strlen(const char *str);
-void	set_content(t_cont *content);
+char	*ft_itoa(int n);
+			/* PARSING */
 char	**verif_map(char **arg, t_data *data);
 void	check_content(t_data *data);
-int		check_content_map(char *line, t_cont content);
-int		check_column(char *line, char wall, t_data *data);
-int		check_line(char *line, char wall);
 int		check_is_rectangle(char **map);
-void	free_map(t_data *data);
+int		check_line(char *line, char wall);
+int		check_column(char *line, char wall, t_data *data);
+int		check_content_map(char *line, t_cont content);
+int		is_ber(char *str, const char *ber);
+			/* UTILS */
+void	ft_error(const char *str);
+void	ft_win(int moves);
+int		check_collect(t_data *data);
+int		end_game(t_data *data);
+			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);
+void	set_image(t_data *data);
+			/* INIT IMAGE */
 void	init_window(t_data *data);
-int		end_game(t_data *data);
-int		keyboard_key(int key, t_data *data);
-void	ft_error(const char *str);
-int		check_collect(t_data *data);
-int		is_ber(char *str, const char *ber);
-void	rendered_enemy(t_data *data);
-void	print_img(t_data *data, t_image img, int x, int y);
-void	ft_win(int moves);
-void	rendered_move(t_data *data, int y, int x, int render);
-void	rendered_player(t_data *data, int x, int y);
-void	rendered_background(t_data *data);
-void	rendered_other(t_data *data);
+int		rendered(t_data *data);
+void	print_img(t_data *data, void *img, int x, int y);
+			/* MOUVEMENT */
+void	rendered_top(t_data *data, int pos_y, int pos_x);
+void	rendered_down(t_data *data, int pos_y, int pos_x);
+void	rendered_right(t_data *data, int pos_y, int pos_x);
+void	rendered_left(t_data *data, int pos_y, int pos_x);
 
 #endif

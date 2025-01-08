@@ -21,12 +21,11 @@ MLX_FLAGS	= -L $(MLX_DIR) -I $(MLX_DIR) -lmlx_Linux -lX11 -lXext $(LIB_MLX)
 # -lX11 and -lXext is for linking some different graphic library require by the mlx 
 
 SRC_DIR 	= src/content/
-SRC_FILE 	=	animation.c \
-				enemy.c \
-				init_image.c \
-				init_mouvement.c \
+SRC_FILE 	=	init_image.c \
 				main.c \
 				map.c \
+				player_movement.c \
+				rendered.c \
 				set_params.c \
 				utils.c \
 				verif_map.c

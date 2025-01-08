@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abrahamsinsard <abrahamsinsard@student.    +#+  +:+       +#+        */
+/*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/07 23:24:56 by abrahamsins      ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 19:47:39 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,19 @@ int	main(int ac, char **av)
 	else
 	{
 		data.count = 0;
-		data.mlx_ptr = mlx_init();
-		if (!data.mlx_ptr)
-			free (data.mlx_ptr);
 		set_content(&data.content);
 		data.map = verif_map(av, &data);
+		if (!data.map)
+		{
+			free(data.map);
+			return (ft_error("\e[1;31mERROR with map allocation\n"), 0);
+		}
+		data.mlx_ptr = mlx_init();
 		if (data.map)
 		{
 			set_assets(&data);
 			init_window(&data);
+			free(data.map);
 		}
 		else
 			end_game(&data);

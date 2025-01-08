@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/06 17:24:59 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 19:39:30 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_column(char *line, char wall, t_data *data)
 		i++;
 	if (line[0] != wall || line[i - 1] != wall)
 	{
-		ft_error("\e[1;31mERROR\nThe map is invalid");
+		ft_error("\e[1;31mERROR\nThe map is invalid\n");
 		return (0);
 	}
 	data->width = i;
