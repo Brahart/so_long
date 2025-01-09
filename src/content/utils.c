@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 19:31:23 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 18:22:45 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int	end_game(t_data *data)
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(0);
+}
+
+void	ft_free(t_data *data)
+{
+	mlx_destroy_image(data->mlx_ptr, data->img.img_wall);
+	mlx_destroy_image(data->mlx_ptr, data->img.img_space);
+	mlx_destroy_image(data->mlx_ptr, data->img.img_collectible);
+	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
+	mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
+	mlx_destroy_image(data->mlx_ptr, data->img.img_enemy);
 }
 
 int	check_collect(t_data *data)
@@ -75,7 +85,7 @@ void	ft_error(const char *str)
 	if (!str)
 		ft_printf("\e[1;31mError ft_error.\n");
 	else
-		ft_printf(str);
+		ft_printf("\e[1;31m%s", str);
 }
 
 int	is_ber(char *str, const char *ber)

@@ -5,8 +5,8 @@ STOP_COLOR	= \e[0m
 
 EXEC 		= so_long
 
-CC 			= gcc
-FLAGS 		= -Wall -Wextra -Werror -g
+CC 			= cc
+FLAGS 		= -Wall -Wextra -Werror
 
 HEAD 		= include/so_long.h
 
@@ -47,7 +47,7 @@ $(EXEC): $(OBJ)
 	@make -sC $(LIBFT_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 	@echo "$(BOLD_BLUE)Make Mlx...$(STOP_COLOR)"
-	@make -sC $(MLX_DIR)
+	@make -C $(MLX_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 	@echo "$(BOLD_BLUE)Creating executable so_long...$(STOP_COLOR)"
 	@$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(EXEC)

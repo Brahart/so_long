@@ -6,13 +6,13 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 19:48:13 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 20:01:05 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-int	keyboard_key(int key, t_data *data)
+/* int	keyboard_key(int key, t_data *data)
 {
 	int	pos_x;
 	int	pos_y;
@@ -21,15 +21,51 @@ int	keyboard_key(int key, t_data *data)
 	pos_y = data->pos.y / data->img.img_width;
 	if (key == XK_Escape)
 		end_game(data);
-	if (key == XK_w || key == XK_Up)
-		rendered_top(data, pos_y, pos_x);
-	if (key == XK_s || key == XK_Down)
-		rendered_down(data, pos_y, pos_x);
-	if (key == XK_a || key == XK_Left)
-		rendered_left(data, pos_y, pos_x);
-	if (key == XK_d || key == XK_Right)
-		rendered_right(data, pos_y, pos_x);
-	return (1);
+	if (key == XK_w || key == XK_Up || key == XK_s || key == XK_Down
+		|| key == XK_a || key == XK_Left || key == XK_d || key == XK_Right)
+	{
+		ft_free(data);
+		if (key == XK_w || key == XK_Up)
+			rendered_top(data, pos_y, pos_x);
+		if (key == XK_s || key == XK_Down)
+			rendered_down(data, pos_y, pos_x);
+		if (key == XK_a || key == XK_Left)
+			rendered_left(data, pos_y, pos_x);
+		if (key == XK_d || key == XK_Right)
+			rendered_right(data, pos_y, pos_x);
+	}
+	else
+		ft_error("ERROR\n Bad key press\n");
+	return (0);
+} */
+
+int	keyboard_key(int key, t_data *data)
+{
+	int	pos_x;
+	int	pos_y;
+
+	pos_x = data->pos.x / data->img.img_height;
+	pos_y = data->pos.y / data->img.img_width;
+	data->pos.x = pos_x;
+	data->pos.y = pos_y;
+	if (key == XK_Escape)
+		end_game(data);
+	if (key == XK_w || key == XK_Up || key == XK_s || key == XK_Down
+		|| key == XK_a || key == XK_Left || key == XK_d || key == XK_Right)
+	{
+		ft_free(data);
+		if (key == XK_w || key == XK_Up)
+			player_rend(data, pos_y - 1, pos_x, PLAYER_UP);
+		if (key == XK_s || key == XK_Down)
+			player_rend(data, pos_y + 1, pos_x, PLAYER_DOWN);
+		if (key == XK_a || key == XK_Left)
+			player_rend(data, pos_y, pos_x - 1, PLAYER_LEFT);
+		if (key == XK_d || key == XK_Right)
+			player_rend(data, pos_y, pos_x + 1, PLAYER_RIGHT);
+	}
+	else
+		ft_error("ERROR\n Bad key press\n");
+	return (0);
 }
 
 void	print_img(t_data *data, void *img, int x, int y)

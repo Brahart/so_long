@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 15:40:34 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 21:26:13 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,24 @@ char	*extract_map(int fd)
 {
 	char	*line;
 	char	*buffer;
+	char	*tmp_line;
 
 	line = ft_strdup("");
-	buffer = ft_strdup("");
-	buffer = get_next_line(fd);
 	if (fd > 0)
 	{
+		buffer = get_next_line(fd);
 		while (buffer)
 		{
-			line = ft_strjoin(line, buffer);
+			tmp_line = ft_strjoin(line, buffer);
+			free(line);
+			line = ft_strdup(tmp_line);
 			free(buffer);
+			free(tmp_line);
 			buffer = get_next_line(fd);
 		}
 		return (line);
 	}
-	ft_error("\e[1;31mERROR\nLecture map has failed");
+	ft_error("ERROR\nLecture map has failed");
 	return (NULL);
 }
 
@@ -51,9 +54,12 @@ void	free_map(t_data *data)
 char	**parse_map(int fd, t_data *data)
 {
 	int	i;
-
+	char *str_tmp;
+	
+	str_tmp = extract_map(fd);
 	i = 0;
-	data->map = ft_split(extract_map(fd), '\n');
+	data->map = ft_split(str_tmp, '\n');
+	free(str_tmp);
 	check_content(data);
 	if (!check_line(data->map[0], data->content.wall))
 		return (free_map(data), NULL);
@@ -80,7 +86,7 @@ char	**verif_map(char **arg, t_data *data)
 	fd = 0;
 	data->map = NULL;
 	if (!is_ber(arg[1], ".ber"))
-		return (ft_error("\e[1;31mERROR\nMap argument is invalid"), NULL);
+		return (ft_error("ERROR\nMap argument is invalid"), NULL);
 	else
 	{
 		fd = open(arg[1], O_RDONLY);
@@ -93,7 +99,7 @@ char	**verif_map(char **arg, t_data *data)
 		{
 			free_map(data);
 			return (ft_error(
-					"\e[1;31mERROR\nNeed 1 Player/Exit and at least 1 Object"),
+					"ERROR\nNeed 1 Player/Exit and at least 1 Object"),
 				NULL);
 		}
 	}

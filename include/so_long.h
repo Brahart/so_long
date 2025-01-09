@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 20:08:23 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 19:54:45 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PLAYER_DOWN "assets/player/player_down.xpm"
 # define PLAYER_LEFT "assets/player/player_left.xpm"
 # define PLAYER_RIGHT "assets/player/player_right.xpm"
+
 
 typedef struct pos_s
 {
@@ -129,6 +130,7 @@ void	ft_error(const char *str);
 void	ft_win(int moves);
 int		check_collect(t_data *data);
 int		end_game(t_data *data);
+void	ft_free(t_data *data);
 			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);
@@ -138,9 +140,10 @@ void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 			/* MOUVEMENT */
-void	rendered_top(t_data *data, int pos_y, int pos_x);
+/* void	rendered_top(t_data *data, int pos_y, int pos_x);
 void	rendered_down(t_data *data, int pos_y, int pos_x);
 void	rendered_right(t_data *data, int pos_y, int pos_x);
-void	rendered_left(t_data *data, int pos_y, int pos_x);
+void	rendered_left(t_data *data, int pos_y, int pos_x); */
+void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
 
 #endif

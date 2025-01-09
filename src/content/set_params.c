@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 19:21:26 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 18:23:52 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,11 @@ void	set_assets(t_data *data)
 	data->img.collectible = COLLECTIBLE;
 	data->img.player = PLAYER_DOWN;
 	data->img.exit = EXIT;
+	if (!data->img.space || !data->img.wall || !data->img.enemy
+		|| !data->img.exit || !data->img.player)
+	{
+		ft_error("ERROR with Floor .xpm");
+		end_game(data);
+	}
 	set_image(data);
 }

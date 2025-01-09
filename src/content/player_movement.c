@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mouvement.c                                   :+:      :+:    :+:   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/08 17:33:10 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/09 20:00:23 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,34 @@ void	rendered_left(t_data *data, int pos_y, int pos_x)
 		{
 			data->map[pos_y][pos_x - 1] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
+			data->count++;
+		}
+		else
+		{
+			if (check_collect(data) == 0)
+			{
+				ft_win(data->count);
+				end_game(data);
+			}
+		}
+	}
+}
+
+void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite)
+{
+	data->img.player = sprite;
+	set_image(data);
+	if (data->map[pos_y][pos_x] != data->content.wall)
+	{
+		if (data->map[pos_y][pos_x] == data->content.enemy)
+		{
+			ft_printf("\e[1;31mYOU LOOSE\n");
+			end_game(data);
+		}
+		else if (!(data->map[pos_y][pos_x] == data->content.exit))
+		{
+			data->map[pos_y][pos_x] = data->content.player;
+			data->map[data->pos.y][data->pos.x] = data->content.space;
 			data->count++;
 		}
 		else
