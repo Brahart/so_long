@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/09 20:01:05 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/10 17:26:29 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	keyboard_key(int key, t_data *data)
 		if (key == XK_s || key == XK_Down)
 			player_rend(data, pos_y + 1, pos_x, PLAYER_DOWN);
 		if (key == XK_a || key == XK_Left)
-			player_rend(data, pos_y, pos_x - 1, PLAYER_LEFT);
+				player_rend(data, pos_y, pos_x - 1, PLAYER_LEFT);
 		if (key == XK_d || key == XK_Right)
 			player_rend(data, pos_y, pos_x + 1, PLAYER_RIGHT);
 	}
@@ -107,6 +107,7 @@ void	init_window(t_data *data)
 		free(data->mlx_ptr);
 		return ;
 	}
+	find_player_pos(data);
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);
 	mlx_hook(data->mlx_win, 17, 0, end_game, data);
