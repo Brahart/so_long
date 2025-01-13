@@ -6,11 +6,12 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/09 21:26:13 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/13 19:22:39 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
+
 
 char	*extract_map(int fd)
 {
@@ -53,15 +54,15 @@ void	free_map(t_data *data)
 
 char	**parse_map(int fd, t_data *data)
 {
-	int	i;
-	char *str_tmp;
-	
+	int		i;
+	char	*str_tmp;
+
 	str_tmp = extract_map(fd);
 	i = 0;
 	data->map = ft_split(str_tmp, '\n');
 	free(str_tmp);
 	check_content(data);
-	if (!check_line(data->map[0], data->content.wall))
+	if (!check_line(data->map[0], data->content.wall, data))
 		return (free_map(data), NULL);
 	if (!check_is_rectangle(data->map))
 		return (free_map(data), NULL);
@@ -74,7 +75,7 @@ char	**parse_map(int fd, t_data *data)
 		i++;
 	}
 	data->height = i;
-	if (!check_line(data->map[i - 1], data->content.wall))
+	if (!check_line(data->map[i - 1], data->content.wall, data))
 		return (free_map(data), NULL);
 	return (data->map);
 }

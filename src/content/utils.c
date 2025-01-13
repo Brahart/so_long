@@ -6,47 +6,11 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/09 18:22:45 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/13 18:48:26 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-
-int	end_game(t_data *data)
-{
-	int		i;
-
-	i = 0;
-	if (data->map)
-	{
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_wall);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_space);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_collectible);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_player);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_enemy);
-		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	}
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	exit(0);
-}
-
-void	ft_free(t_data *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->img.img_wall);
-	mlx_destroy_image(data->mlx_ptr, data->img.img_space);
-	mlx_destroy_image(data->mlx_ptr, data->img.img_collectible);
-	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
-	mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
-	mlx_destroy_image(data->mlx_ptr, data->img.img_enemy);
-}
 
 int	check_collect(t_data *data)
 {
@@ -75,7 +39,7 @@ void	ft_win(int moves)
 {
 	moves++;
 	ft_printf(
-		"\e[1;32mCongrats !!! You finished the game in : %d moves !!!\n",
+		"\e[1;32mCongrats !!! You finished the game in : %d moves !!!\n\e[0m",
 		moves);
 	return ;
 }
@@ -85,7 +49,7 @@ void	ft_error(const char *str)
 	if (!str)
 		ft_printf("\e[1;31mError ft_error.\n");
 	else
-		ft_printf("\e[1;31m%s", str);
+		ft_printf("\e[1;31m%s\e[0m", str);
 }
 
 int	is_ber(char *str, const char *ber)
@@ -107,4 +71,21 @@ int	is_ber(char *str, const char *ber)
 		i++;
 	}
 	return (0);
+}
+
+void	flood_fill(t_data *data, int x, int y)
+{
+	while (data->flood[y][x] != '1' && data->flood[y][x] != 'F')
+	{
+		if (data->flood[y][x] == 'C')
+			data->content.tmp_c--;
+		if (data->flood[y][x] == 'E')
+			data->content.tmp_ex = 0;
+		else
+			data->flood[y][x] = 'F';
+		flood_fill(data, x + 1, y);
+		flood_fill(data, x - 1, y);
+		flood_fill(data, x, y + 1);
+		flood_fill(data, x, y - 1);
+	}
 }

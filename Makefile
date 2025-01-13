@@ -21,7 +21,8 @@ MLX_FLAGS	= -L $(MLX_DIR) -I $(MLX_DIR) -lmlx_Linux -lX11 -lXext $(LIB_MLX)
 # -lX11 and -lXext is for linking some different graphic library require by the mlx 
 
 SRC_DIR 	= src/content/
-SRC_FILE 	=	init_image.c \
+SRC_FILE 	=	end.c \
+				init_image.c \
 				main.c \
 				map.c \
 				player_movement.c \
@@ -47,7 +48,7 @@ $(EXEC): $(OBJ)
 	@make -sC $(LIBFT_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 	@echo "$(BOLD_BLUE)Make Mlx...$(STOP_COLOR)"
-	@make -C $(MLX_DIR)
+	@make -sC $(MLX_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 	@echo "$(BOLD_BLUE)Creating executable so_long...$(STOP_COLOR)"
 	@$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(EXEC)

@@ -67,7 +67,11 @@ mlx_get_data_addr:	Cette fonction permet de recuperer une image precise a partir
 
 					char	*mlx_get_data_addr(void *img, int *bits_per_pixel,
 											   int *size_line, int *endian);
+
+mlx_destroy_img:	Cette fonction detruit une image et libere la memoire alloue a 
+					celle-ci.
 					
+					void mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 
 
 mlx_destroy_window:	Cette fonction ferme la fenetre cree auparavant, libere les 

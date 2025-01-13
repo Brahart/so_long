@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/09 19:54:45 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/13 19:28:17 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,9 @@
 
 typedef struct pos_s
 {
-	int	up;
-	int	down;
-	int	left;
-	int	right;
 	int	x;
 	int	y;
 }	t_pos;
-
-typedef struct enemy_s
-{
-	int		x;
-	int		y;
-	int		direction_x;
-	int		direction_y;
-	int		speed;
-	t_pos	pos;
-}	t_enemy;
-
-typedef struct player_s
-{
-	int		line;
-	int		col;
-	int		width;
-	int		height;
-	t_pos	pos;
-}	t_player;
 
 typedef struct content_s
 {
@@ -72,9 +49,11 @@ typedef struct content_s
 	char	enemy;
 	char	exit;
 	char	collectible;
-	int		count_ex;
-	int		count_p;
 	int		count_c;
+	int		tmp_c;
+	int		count_ex;
+	int		tmp_ex;
+	int		count_p;
 	int		count_en;
 }	t_cont;
 
@@ -103,12 +82,13 @@ typedef struct data_s
 	int			width;
 	int			height;
 	char		**map;
+	char		**flood;
 	t_cont		content;
 	t_image		img;
 	t_pos		pos;
-	t_enemy		*enemy;
-	t_player	player;
 	int			count;
+	int			x;
+	int			y;
 }	t_data;
 
 			/* LIBFT */
@@ -121,16 +101,9 @@ char	*ft_itoa(int n);
 char	**verif_map(char **arg, t_data *data);
 void	check_content(t_data *data);
 int		check_is_rectangle(char **map);
-int		check_line(char *line, char wall);
+int		check_line(char *line, char wall, t_data *data);
 int		check_column(char *line, char wall, t_data *data);
 int		check_content_map(char *line, t_cont content);
-int		is_ber(char *str, const char *ber);
-			/* UTILS */
-void	ft_error(const char *str);
-void	ft_win(int moves);
-int		check_collect(t_data *data);
-int		end_game(t_data *data);
-void	ft_free(t_data *data);
 			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);
@@ -140,10 +113,15 @@ void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 			/* MOUVEMENT */
-/* void	rendered_top(t_data *data, int pos_y, int pos_x);
-void	rendered_down(t_data *data, int pos_y, int pos_x);
-void	rendered_right(t_data *data, int pos_y, int pos_x);
-void	rendered_left(t_data *data, int pos_y, int pos_x); */
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
+			/* END */
+int		end_game(t_data *data);
+void	ft_free(t_data *data);
+			/* UTILS */
+void	ft_error(const char *str);
+void	ft_win(int moves);
+int		check_collect(t_data *data);
+void	flood_fill(t_data *data, int x, int y);
+int		is_ber(char *str, const char *ber);
 
 #endif

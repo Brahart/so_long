@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/10 16:52:15 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/13 17:22:28 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,30 +124,31 @@ void	rendered_left(t_data *data, int pos_y, int pos_x)
 	}
 }
 
-void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite)
+void	player_rend(t_data *data, int y, int x, char *sprite)
 {
 	data->img.player = sprite;
 	set_image(data);
-	if (data->map[pos_y][pos_x] != data->content.wall)
+	if (data->map[y][x] != data->content.wall)
 	{
-		if (data->map[pos_y][pos_x] == data->content.enemy)
+		if (data->map[y][x] == data->content.enemy)
 		{
-			ft_printf("\e[1;31mYOU LOOSE\n");
+			ft_printf("\e[1;31mYOU LOOSE\n\e[0m");
 			end_game(data);
 		}
-		else if (!(data->map[pos_y][pos_x] == data->content.exit))
+		else if (data->pos.y > 0 && data->pos.x > 0
+			&& !(data->map[y][x] == data->content.exit))
 		{
-			data->map[pos_y][pos_x] = data->content.player;
+			data->map[y][x] = data->content.player;
 			data->map[data->pos.y][data->pos.x] = data->content.space;
 			data->count++;
 		}
-		else
+		else if (data->map[y][x] == data->content.exit
+				&& check_collect(data) == 0)
 		{
-			if (check_collect(data) == 0)
-			{
-				ft_win(data->count);
-				end_game(data);
-			}
+			ft_win(data->count);
+			end_game(data);
 		}
+		else
+			return ;
 	}
 }

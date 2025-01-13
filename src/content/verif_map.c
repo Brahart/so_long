@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/10 17:25:02 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/13 19:23:12 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,24 @@
 
 void	check_content(t_data *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (data->map[i])
+	data->y = 0;
+	data->x = 0;
+	while (data->map[data->y])
 	{
-		while (data->map[i][j])
+		while (data->map[data->y][data->x])
 		{
-			if (data->map[i][j] == data->content.player)
+			if (data->map[data->y][data->x] == data->content.player)
 				data->content.count_p += 1;
-			if (data->map[i][j] == data->content.exit)
+			if (data->map[data->y][data->x] == data->content.exit)
 				data->content.count_ex += 1;
-			if (data->map[i][j] == data->content.collectible)
+			if (data->map[data->y][data->x] == data->content.collectible)
 				data->content.count_c += 1;
-			if (data->map[i][j] == data->content.collectible)
+			if (data->map[data->y][data->x] == data->content.collectible)
 				data->content.count_en += 1;
-			j++;
+			data->x++;
 		}
-		j = 0;
-		i++;
+		data->x = 0;
+		data->y++;
 	}
 }
 
@@ -68,6 +65,11 @@ int	check_column(char *line, char wall, t_data *data)
 	i = 0;
 	while (line[i])
 		i++;
+	if (i > 60)
+	{
+		ft_error("ERROR\nToo much column for the map\n");
+		return (0);
+	}
 	if (line[0] != wall || line[i - 1] != wall)
 	{
 		ft_error("ERROR\nThe map is invalid\n");
@@ -77,16 +79,24 @@ int	check_column(char *line, char wall, t_data *data)
 	return (1);
 }
 
-int	check_line(char *line, char wall)
+int	check_line(char *line, char wall, t_data *data)
 {
 	int	i;
 
+	i = 0;
+	while (data->map[i])
+		i++;
+	if (i > 32)
+	{
+		ft_error("ERROR\nToo much line for the map\n");
+		return (0);
+	}
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] != wall)
 		{
-			ft_error("ERROR\nThe map is invalid");
+			ft_error("ERROR\nThe map is invalid\n");
 			return (0);
 		}
 		i++;
@@ -111,11 +121,11 @@ int	check_is_rectangle(char **map)
 			j++;
 		if (j != count)
 			return (ft_error(
-					"ERROR\nThe line doesn't have the same length"), 0);
+					"ERROR\nThe line doesn't have the same length\n"), 0);
 		j = 0;
 		i++;
 	}
 	if (i == j)
-		return (ft_error("ERROR\nThe map must be a rectangle"), 0);
+		return (ft_error("ERROR\nThe map must be a rectangle\n"), 0);
 	return (1);
 }
