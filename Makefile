@@ -24,6 +24,7 @@ SRC_DIR 	= src/content/
 SRC_FILE 	=	end.c \
 				init_image.c \
 				main.c \
+				map_utils.c \
 				map.c \
 				player_movement.c \
 				rendered.c \

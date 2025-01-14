@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/13 17:22:28 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 15:40:49 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,4 +151,31 @@ void	player_rend(t_data *data, int y, int x, char *sprite)
 		else
 			return ;
 	}
+}
+
+int	keyboard_key(int key, t_data *data)
+{
+	data->x = data->pos.x / data->img.img_height;
+	data->y = data->pos.y / data->img.img_width;
+	data->pos.x = data->x;
+	data->pos.y = data->y;
+	if (key == XK_Escape)
+		end_game(data);
+	if (data->pos.x && data->pos.y && (key == XK_w || key == XK_Up
+			|| key == XK_s || key == XK_Down || key == XK_a || key == XK_Left
+			|| key == XK_d || key == XK_Right))
+	{
+		ft_free(data);
+		if ((key == XK_w || key == XK_Up))
+			player_rend(data, data->y - 1, data->x, PLAYER_UP);
+		if ((key == XK_s || key == XK_Down))
+			player_rend(data, data->y + 1, data->x, PLAYER_DOWN);
+		if ((key == XK_d || key == XK_Right))
+			player_rend(data, data->y, data->x + 1, PLAYER_RIGHT);
+		if ((key == XK_a || key == XK_Left))
+			player_rend(data, data->y, data->x - 1, PLAYER_LEFT);
+	}
+	else
+		ft_error("ERROR\n Bad key(s) press\n");
+	return (0);
 }

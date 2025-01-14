@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/13 19:28:17 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 18:31:03 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct data_s
 	int			count;
 	int			x;
 	int			y;
+	int			index;
 }	t_data;
 
 			/* LIBFT */
@@ -104,6 +105,7 @@ int		check_is_rectangle(char **map);
 int		check_line(char *line, char wall, t_data *data);
 int		check_column(char *line, char wall, t_data *data);
 int		check_content_map(char *line, t_cont content);
+char	*read_line(char *line, char *buffer, char *tmp_line, int fd);
 			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);
@@ -113,6 +115,7 @@ void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 			/* MOUVEMENT */
+int	keyboard_key(int key, t_data *data);
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
 			/* END */
 int		end_game(t_data *data);

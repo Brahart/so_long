@@ -6,12 +6,11 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/13 19:22:39 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 18:37:40 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-
 
 char	*extract_map(int fd)
 {
@@ -20,23 +19,28 @@ char	*extract_map(int fd)
 	char	*tmp_line;
 
 	line = ft_strdup("");
-	if (fd > 0)
+	if (!line)
+		return (NULL);
+	buffer = get_next_line(fd);
+	if (!buffer)
+		return (free(line), NULL);
+	while (buffer)
 	{
+		tmp_line = ft_strjoin(line, buffer);
+		if (!tmp_line)
+			return (free(buffer), free(line), NULL);
+		free(line);
+		line = ft_strdup(tmp_line);
+		if (!line)
+			return (free(buffer), free(tmp_line), NULL);
+		free(buffer);
+		free(tmp_line);
 		buffer = get_next_line(fd);
-		while (buffer)
-		{
-			tmp_line = ft_strjoin(line, buffer);
-			free(line);
-			line = ft_strdup(tmp_line);
-			free(buffer);
-			free(tmp_line);
-			buffer = get_next_line(fd);
-		}
-		return (line);
 	}
-	ft_error("ERROR\nLecture map has failed");
-	return (NULL);
+	return (line);
+	return (ft_error("ERROR\nLecture map has failed\n"), NULL);
 }
+
 
 void	free_map(t_data *data)
 {
@@ -87,22 +91,19 @@ char	**verif_map(char **arg, t_data *data)
 	fd = 0;
 	data->map = NULL;
 	if (!is_ber(arg[1], ".ber"))
-		return (ft_error("ERROR\nMap argument is invalid"), NULL);
+		return (ft_error("ERROR\nThe argument is not a .ber\n"), NULL);
+	fd = open(arg[1], O_RDONLY);
+	if (fd > 0)
+		data->map = parse_map(fd, data);
 	else
+		return (ft_error("ERROR\nCan't open file\n"), NULL);
+	if ((data->content.count_c == 0 || data->content.count_ex != 1
+			|| data->content.count_p != 1) && data->map)
 	{
-		fd = open(arg[1], O_RDONLY);
-		if (fd > 0)
-			data->map = parse_map(fd, data);
-		else
-			return (ft_error("ERROR\nCan't open file"), NULL);
-		if ((data->content.count_c == 0 || data->content.count_ex != 1
-				|| data->content.count_p != 1) && data->map)
-		{
-			free_map(data);
-			return (ft_error(
-					"ERROR\nNeed 1 Player/Exit and at least 1 Object"),
-				NULL);
-		}
+		free_map(data);
+		return (ft_error(
+			"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"),
+			NULL);
 	}
 	close(fd);
 	return (data->map);
