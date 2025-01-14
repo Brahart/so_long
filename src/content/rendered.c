@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:18:32 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/09 18:23:47 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 20:22:43 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void	rendered_exit(t_data *data, int j, int i)
 		data->img.img_exit = mlx_xpm_file_to_image(
 				data->mlx_ptr, data->img.exit,
 				&data->img.img_width, &data->img.img_height);
+		if (!data->img.img_exit)
+		{
+			ft_error("ERROR\nProblem with assets's path or name");
+			mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+			destroy_image(data);
+		}
 		print_img(data, data->img.img_exit, j, i);
 	}
 }

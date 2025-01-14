@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 18:31:03 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 20:10:38 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct data_s
 	int			count;
 	int			x;
 	int			y;
-	int			index;
+	int			verif;
 }	t_data;
 
 			/* LIBFT */
@@ -105,7 +105,6 @@ int		check_is_rectangle(char **map);
 int		check_line(char *line, char wall, t_data *data);
 int		check_column(char *line, char wall, t_data *data);
 int		check_content_map(char *line, t_cont content);
-char	*read_line(char *line, char *buffer, char *tmp_line, int fd);
 			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);
@@ -114,6 +113,7 @@ void	set_image(t_data *data);
 void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
+void	destroy_image(t_data *data);
 			/* MOUVEMENT */
 int	keyboard_key(int key, t_data *data);
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
@@ -126,5 +126,6 @@ void	ft_win(int moves);
 int		check_collect(t_data *data);
 void	flood_fill(t_data *data, int x, int y);
 int		is_ber(char *str, const char *ber);
+void	free_map(t_data *data);
 
 #endif

@@ -6,13 +6,36 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 18:37:40 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/14 21:02:23 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-char	*extract_map(int fd)
+static void	check_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	check_content(data);
+	if (!check_line(data->map[0], data->content.wall, data))
+		free_map(data);
+	if (!check_is_rectangle(data->map))
+		free_map(data);
+	while (data->map[i])
+	{
+		if (!check_column(data->map[i], data->content.wall, data))
+			free_map(data);
+		if (!check_content_map(data->map[i], data->content))
+			free_map(data);
+		i++;
+	}
+	data->height = i;
+	if (!check_line(data->map[i - 1], data->content.wall, data))
+		free_map(data);
+}
+
+static char	*extract_map(int fd)
 {
 	char	*line;
 	char	*buffer;
@@ -38,9 +61,7 @@ char	*extract_map(int fd)
 		buffer = get_next_line(fd);
 	}
 	return (line);
-	return (ft_error("ERROR\nLecture map has failed\n"), NULL);
 }
-
 
 void	free_map(t_data *data)
 {
@@ -56,31 +77,24 @@ void	free_map(t_data *data)
 	data->map = NULL;
 }
 
-char	**parse_map(int fd, t_data *data)
+static char	**parse_map(int fd, t_data *data)
 {
-	int		i;
 	char	*str_tmp;
 
 	str_tmp = extract_map(fd);
-	i = 0;
+	if (!str_tmp)
+	{
+		ft_error("ERROR\nProblem with extract_map function\n");
+		return (NULL);
+	}
 	data->map = ft_split(str_tmp, '\n');
 	free(str_tmp);
-	check_content(data);
-	if (!check_line(data->map[0], data->content.wall, data))
-		return (free_map(data), NULL);
-	if (!check_is_rectangle(data->map))
-		return (free_map(data), NULL);
-	while (data->map[i])
+	if (!data->map)
 	{
-		if (!check_column(data->map[i], data->content.wall, data))
-			return (free_map(data), NULL);
-		if (!check_content_map(data->map[i], data->content))
-			return (free_map(data), NULL);
-		i++;
+		ft_error("ERROR\nProblem with split function\n");
+		return (NULL);
 	}
-	data->height = i;
-	if (!check_line(data->map[i - 1], data->content.wall, data))
-		return (free_map(data), NULL);
+	check_map(data);
 	return (data->map);
 }
 
@@ -94,7 +108,11 @@ char	**verif_map(char **arg, t_data *data)
 		return (ft_error("ERROR\nThe argument is not a .ber\n"), NULL);
 	fd = open(arg[1], O_RDONLY);
 	if (fd > 0)
+	{
 		data->map = parse_map(fd, data);
+		if (!data->map)
+			return (ft_error("ERROR\nThe map isn't allocate\n"), NULL);
+	}
 	else
 		return (ft_error("ERROR\nCan't open file\n"), NULL);
 	if ((data->content.count_c == 0 || data->content.count_ex != 1
@@ -102,7 +120,7 @@ char	**verif_map(char **arg, t_data *data)
 	{
 		free_map(data);
 		return (ft_error(
-			"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"),
+				"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"),
 			NULL);
 	}
 	close(fd);
