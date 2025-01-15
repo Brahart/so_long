@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 21:02:23 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/15 19:04:55 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ static void	check_map(t_data *data)
 	i = 0;
 	check_content(data);
 	if (!check_line(data->map[0], data->content.wall, data))
-		free_map(data);
+		free_map_and_exit(data->map);
 	if (!check_is_rectangle(data->map))
-		free_map(data);
+		free_map_and_exit(data->map);
 	while (data->map[i])
 	{
 		if (!check_column(data->map[i], data->content.wall, data))
-			free_map(data);
-		if (!check_content_map(data->map[i], data->content))
-			free_map(data);
+			free_map_and_exit(data->map);
+		else if (!check_content_map(data->map[i], data->content))
+			free_map_and_exit(data->map);
 		i++;
 	}
 	data->height = i;
 	if (!check_line(data->map[i - 1], data->content.wall, data))
-		free_map(data);
+		free_map_and_exit(data->map);
 }
 
 static char	*extract_map(int fd)
@@ -63,18 +63,18 @@ static char	*extract_map(int fd)
 	return (line);
 }
 
-void	free_map(t_data *data)
+void	free_map(char **map)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (data->map[i])
+	while (map[i])
 	{
-		free(data->map[i]);
+		free(map[i]);
 		i++;
 	}
-	free(data->map);
-	data->map = NULL;
+	free(map);
+	map = NULL;
 }
 
 static char	**parse_map(int fd, t_data *data)
@@ -95,6 +95,7 @@ static char	**parse_map(int fd, t_data *data)
 		return (NULL);
 	}
 	check_map(data);
+	check_flood_fill(data);
 	return (data->map);
 }
 
@@ -118,7 +119,7 @@ char	**verif_map(char **arg, t_data *data)
 	if ((data->content.count_c == 0 || data->content.count_ex != 1
 			|| data->content.count_p != 1) && data->map)
 	{
-		free_map(data);
+		free_map(data->map);
 		return (ft_error(
 				"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"),
 			NULL);

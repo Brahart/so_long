@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 21:11:44 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/15 18:49:44 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	*load_image(void *mlx_ptr, char *path, int *width, int *height)
 
 void	destroy_image(t_data *data)
 {
-	data->verif = 0;
-	free_map(data);
+	free_map(data->map);
 	if (!data->img.img_player
 		&& ft_strncmp(data->img.player, PLAYER_DOWN, 1024))
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
@@ -56,19 +55,21 @@ void	set_image(t_data *data)
 	data->img.img_player = NULL;
 	data->img.img_exit = NULL;
 	data->img.img_enemy = NULL;
-	if (!(data->img.img_player = load_image(data->mlx_ptr, data->img.player,
-				&data->img.img_width, &data->img.img_height))
-		|| !(data->img.img_wall = load_image(data->mlx_ptr, data->img.wall,
-				&data->img.img_width, &data->img.img_height))
-		|| !(data->img.img_collectible = load_image(
-				data->mlx_ptr, data->img.collectible,
-				&data->img.img_width, &data->img.img_height))
-		|| !(data->img.img_space = load_image(data->mlx_ptr, data->img.space,
-				&data->img.img_width, &data->img.img_height))
-		|| !(data->img.img_exit = load_image(data->mlx_ptr, data->img.exit,
-				&data->img.img_width, &data->img.img_height))
-		|| !(data->img.img_enemy = load_image(data->mlx_ptr, data->img.enemy,
-				&data->img.img_width, &data->img.img_height)))
+	data->img.img_player = load_image(data->mlx_ptr, data->img.player,
+			&data->img.img_width, &data->img.img_height);
+	data->img.img_wall = load_image(data->mlx_ptr, data->img.wall,
+			&data->img.img_width, &data->img.img_height);
+	data->img.img_collectible = load_image(data->mlx_ptr,
+			data->img.collectible, &data->img.img_width, &data->img.img_height);
+	data->img.img_space = load_image(data->mlx_ptr, data->img.space,
+			&data->img.img_width, &data->img.img_height);
+	data->img.img_exit = load_image(data->mlx_ptr, data->img.exit,
+			&data->img.img_width, &data->img.img_height);
+	data->img.img_enemy = load_image(data->mlx_ptr, data->img.enemy,
+			&data->img.img_width, &data->img.img_height);
+	if (!data->img.img_player || !data->img.img_wall
+		|| !data->img.img_collectible || !data->img.img_space
+		|| !data->img.img_exit || !data->img.img_enemy)
 	{
 		ft_error("ERROR\nProblem with assets's path or name");
 		destroy_image(data);
@@ -87,7 +88,7 @@ void	init_window(t_data *data)
 	}
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);
-	mlx_hook(data->mlx_win, 17, 0, end_game, data);
+	mlx_hook(data->mlx_win, DestroyNotify, 0, end_game, data);
 	mlx_loop(data->mlx_ptr);
 	end_game(data);
 }

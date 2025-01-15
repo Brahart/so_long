@@ -6,7 +6,7 @@ STOP_COLOR	= \e[0m
 EXEC 		= so_long
 
 CC 			= cc
-FLAGS 		= -Wall -Wextra -Werror
+FLAGS 		= -Wall -Wextra -Werror -g3
 
 HEAD 		= include/so_long.h
 
@@ -33,15 +33,15 @@ SRC_FILE 	=	end.c \
 				verif_map.c
 
 SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILE))
-OBJ_DIR 	= obj/
-OBJ 		= $(SRC:%.c=%.o)
-OBJ_LIBFT 	= $(OBJ_DIR)*.o
+OBJ_DIR 	= objs/
+OBJ 		= $(SRC_FILE:%.c=$(OBJ_DIR)%.o)
 
 
 all: $(EXEC)
 
-$(OBJ_DIR)%.o: %.c $(HEAD)
-	@$(CC) $(FLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAGS) -c $< -o $@
 
 
 $(EXEC): $(OBJ)
@@ -59,7 +59,7 @@ clean:
 	@echo "$(BOLD_BLUE)Delete obj...$(STOP_COLOR)"
 	@make clean -sC src/libft/src/
 	@make clean -sC minilibx-linux/
-	@rm -f $(SRC_DIR)*.o
+	@rm -rf $(OBJ_DIR)
 	@echo "$(BOLD_RED)SUCCESS !!!$(STOP_COLOR)"
 
 fclean: clean

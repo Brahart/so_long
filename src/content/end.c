@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:58:46 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 20:10:31 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/15 14:55:31 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	end_game(t_data *data)
 {
 	if (data->map)
 	{
-		free_map(data);
+		free_map(data->map);
 		ft_free(data);
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	}

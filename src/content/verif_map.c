@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/13 19:23:12 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/15 19:06:20 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	check_content(t_data *data)
 		while (data->map[data->y][data->x])
 		{
 			if (data->map[data->y][data->x] == data->content.player)
+			{
 				data->content.count_p += 1;
+				data->pos.y = data->y;
+				data->pos.x = data->x;
+			}
 			if (data->map[data->y][data->x] == data->content.exit)
 				data->content.count_ex += 1;
 			if (data->map[data->y][data->x] == data->content.collectible)

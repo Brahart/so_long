@@ -6,31 +6,78 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:25:25 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 18:53:32 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/15 19:37:23 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-void	check_map(t_data *data)
+void	free_map_and_exit(char **map)
+{
+	free_map(map);
+	exit(0);
+}
+
+void	free_flood(char **map, int height)
 {
 	int	i;
 
 	i = 0;
-	check_content(data);
-	if (!check_line(data->map[0], data->content.wall, data))
-		free_map(data);
-	if (!check_is_rectangle(data->map))
-		free_map(data);
-	while (data->map[i])
+	while (i < height && map[i])
 	{
-		if (!check_column(data->map[i], data->content.wall, data))
-			free_map(data);
-		if (!check_content_map(data->map[i], data->content))
-			free_map(data);
+		free(map[i]);
 		i++;
 	}
-	data->height = i;
-	if (!check_line(data->map[i - 1], data->content.wall, data))
-		free_map(data);
+	free(map);
+}
+
+int	copy_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->flood = ft_calloc(data->height + 1, sizeof(char *));
+	if (!data->flood)
+	{
+		ft_error("ERROR with allocation of temporary map for floodfill\n");
+		return (0);
+	}
+	while (data->map[i])
+	{
+		data->flood[i] = ft_strdup(data->map[i]);
+		if (!data->flood[i])
+		{
+			free_flood(data->flood, i);
+			ft_error("ERROR with map dupliaction for floodfill\n");
+			return (0);
+		}
+		i++;
+	}
+	return (i);
+}
+
+void	check_flood_fill(t_data *data)
+{
+	data->content.tmp_c = data->content.count_c;
+	data->content.tmp_ex = 1;
+	if (!copy_map(data))
+	{
+		ft_error("ERROR\ncopy_map has failed");
+		free_map(data->map);
+		exit (0);
+	}
+	flood_fill(data, data->pos.x, data->pos.y);
+	free_map(data->flood);
+	if (data->content.tmp_c)
+	{
+		ft_error("ERROR\nAll collectible are not accessible");
+		free_map(data->map);
+		exit(0);
+	}
+	if (data->content.tmp_ex)
+	{
+		ft_error("ERROR\nThe exit is not accessible");
+		free_map(data->map);
+		exit(0);
+	}
 }
