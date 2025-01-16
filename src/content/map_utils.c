@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:25:25 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/16 16:03:14 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 18:26:58 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	verif_double_backspace(char *line)
 	{
 		if (line[i] == '\n')
 		{
-			if (line[i - 1] != '1' && line[i + 1] != '1')
+			if (line[i + 1] == '\n')
 			{
 				ft_error(
 					"ERROR\nThe map contains invalid return to line\n");
@@ -105,5 +105,8 @@ int	verif_double_backspace(char *line)
 		}
 		i++;
 	}
+	if (line[i - 1] == '\n')
+		return (ft_error(
+				"ERROR\nThe map contains invalid return to line\n"), 0);
 	return (1);
 }

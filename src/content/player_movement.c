@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 20:48:06 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 18:35:42 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,5 @@ int	keyboard_key(int key, t_data *data)
 		if ((key == XK_a || key == XK_Left))
 			player_rend(data, data->y, data->x - 1, PLAYER_LEFT);
 	}
-	else
-		ft_error("ERROR\n Bad key(s) press\n");
 	return (0);
 }

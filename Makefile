@@ -3,7 +3,7 @@ BOLD_RED	= \e[1;31m
 BOLD_BLUE	= \e[1;34m
 STOP_COLOR	= \e[0m
 
-EXEC 		= so_long
+NAME 		= so_long
 
 CC 			= cc
 FLAGS 		= -Wall -Wextra -Werror -g3
@@ -37,14 +37,14 @@ OBJ_DIR 	= objs/
 OBJ 		= $(SRC_FILE:%.c=$(OBJ_DIR)%.o)
 
 
-all: $(EXEC)
+all: $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 
 
-$(EXEC): $(OBJ)
+$(NAME): $(OBJ)
 	@echo "$(BOLD_BLUE)Make Libft...$(STOP_COLOR)"
 	@make -sC $(LIBFT_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
@@ -52,7 +52,7 @@ $(EXEC): $(OBJ)
 	@make -sC $(MLX_DIR)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 	@echo "$(BOLD_BLUE)Creating executable so_long...$(STOP_COLOR)"
-	@$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(EXEC)
+	@$(CC) $(FLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 	@echo "$(BOLD_GREEN)SUCCESS !!!$(STOP_COLOR)"
 
 clean:
@@ -64,7 +64,7 @@ clean:
 
 fclean: clean
 	@echo "$(BOLD_BLUE)Make fclean...$(STOP_COLOR)"
-	@rm -f $(LIB_LIBFT) $(LIB_MLX) $(EXEC)
+	@rm -f $(LIB_LIBFT) $(LIB_MLX) $(NAME)
 	@echo "$(BOLD_RED)SUCCESS !!!$(STOP_COLOR)"
 
 re: fclean all
