@@ -6,13 +6,11 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:26:29 by asinsard          #+#    #+#             */
-/*   Updated: 2024/12/30 18:50:29 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 16:06:38 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/get_next_line.h"
-
-
 
 char	*ftt_bzero(char *str, int i)
 {

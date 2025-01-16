@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 17:43:13 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 13:59:41 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ void	flood_fill(t_data *data, int x, int y)
 	if (data->flood[y][x] == 'C')
 		data->content.tmp_c--;
 	if (data->flood[y][x] == 'E')
+	{
 		data->content.tmp_ex = 0;
+		return ;
+	}
 	if (data->flood[y][x] != 'E')
 		data->flood[y][x] = 'F';
 	flood_fill(data, x + 1, y);

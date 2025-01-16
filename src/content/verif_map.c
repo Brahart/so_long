@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 19:06:20 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 15:38:34 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,19 +117,18 @@ int	check_is_rectangle(char **map)
 	i = 0;
 	j = 0;
 	count = 0;
-	while (map[0][count])
+	while (map[i][count])
 		count++;
 	while (map[i])
 	{
 		while (map[i][j])
 			j++;
 		if (j != count)
-			return (ft_error(
-					"ERROR\nThe line doesn't have the same length\n"), 0);
-		j = 0;
+			return (ft_error("ERROR\nThe line of map is invalid\n"), 0);
 		i++;
+		if (i == j)
+			return (ft_error("ERROR\nThe map must be a rectangle\n"), 0);
+		j = 0;
 	}
-	if (i == j)
-		return (ft_error("ERROR\nThe map must be a rectangle\n"), 0);
 	return (1);
 }

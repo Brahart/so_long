@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 19:05:01 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 15:56:36 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		check_line(char *line, char wall, t_data *data);
 int		check_column(char *line, char wall, t_data *data);
 int		check_content_map(char *line, t_cont content);
 void	check_flood_fill(t_data *data);
+int		verif_double_backspace(char *line);
 			/* SET CONTENT */
 void	set_content(t_cont *content);
 void	set_assets(t_data *data);

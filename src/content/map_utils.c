@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:25:25 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 19:37:23 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/16 16:03:14 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,30 @@ void	check_flood_fill(t_data *data)
 		free_map(data->map);
 		exit(0);
 	}
+}
+
+int	verif_double_backspace(char *line)
+{
+	int	i;
+
+	i = 1;
+	if (line[0] == '\n')
+	{
+		ft_error("ERROR\nThe map contains invalid return to line\n");
+		return (0);
+	}
+	while (line[i])
+	{
+		if (line[i] == '\n')
+		{
+			if (line[i - 1] != '1' && line[i + 1] != '1')
+			{
+				ft_error(
+					"ERROR\nThe map contains invalid return to line\n");
+				return (0);
+			}
+		}
+		i++;
+	}
+	return (1);
 }
