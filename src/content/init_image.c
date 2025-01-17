@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 18:49:44 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/17 11:35:05 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,20 @@ void	set_image(t_data *data)
 
 void	init_window(t_data *data)
 {
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr)
+	{
+		ft_error("ERROR with allocation of mlx_ptr");
+		free_map_and_exit(data->map);
+	}
 	data->mlx_win = mlx_new_window(data->mlx_ptr,
 			(data->width * data->img.img_width),
 			(data->height * data->img.img_height), "so_long");
 	if (!data->mlx_win)
 	{
+		ft_error("ERROR\nThe mlx window is'nt allocate");
 		free(data->mlx_ptr);
-		return ;
+		free_map_and_exit(data->map);
 	}
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);
