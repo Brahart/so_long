@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/16 15:38:34 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/20 14:28:10 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	check_content(t_data *data)
 				data->content.count_ex += 1;
 			if (data->map[data->y][data->x] == data->content.collectible)
 				data->content.count_c += 1;
-			if (data->map[data->y][data->x] == data->content.collectible)
-				data->content.count_en += 1;
+			if (data->map[data->y][data->x] == data->content.enemy)
+				data->content.bad += 1;
 			data->x++;
 		}
 		data->x = 0;

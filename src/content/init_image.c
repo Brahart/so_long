@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/17 11:35:05 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/20 14:28:59 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	set_image(t_data *data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player || !data->img.img_wall
 		|| !data->img.img_collectible || !data->img.img_space
-		|| !data->img.img_exit || !data->img.img_enemy)
+		|| !data->img.img_exit || (data->content.bad && !data->img.img_enemy))
 	{
 		ft_error("ERROR\nProblem with assets's path or name");
 		destroy_image(data);
@@ -78,20 +78,13 @@ void	set_image(t_data *data)
 
 void	init_window(t_data *data)
 {
-	data->mlx_ptr = mlx_init();
-	if (data->mlx_ptr)
-	{
-		ft_error("ERROR with allocation of mlx_ptr");
-		free_map_and_exit(data->map);
-	}
 	data->mlx_win = mlx_new_window(data->mlx_ptr,
 			(data->width * data->img.img_width),
 			(data->height * data->img.img_height), "so_long");
 	if (!data->mlx_win)
 	{
-		ft_error("ERROR\nThe mlx window is'nt allocate");
 		free(data->mlx_ptr);
-		free_map_and_exit(data->map);
+		return ;
 	}
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);

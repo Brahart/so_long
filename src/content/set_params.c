@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/14 21:01:54 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/20 14:28:05 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_content(t_cont *content)
 	content->count_ex = 0;
 	content->count_p = 0;
 	content->count_c = 0;
-	content->count_en = 0;
+	content->bad = 0;
 }
 
 void	set_assets(t_data *data)

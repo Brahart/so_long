@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/16 15:56:36 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/20 14:32:42 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct content_s
 	int		count_ex;
 	int		tmp_ex;
 	int		count_p;
-	int		count_en;
+	int		bad;
 }	t_cont;
 
 typedef struct img_s
