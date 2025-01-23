@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 00:38:44 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 16:36:43 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ void	print_img(t_data *data, void *img, int x, int y)
 		data->img.img_height * y);
 }
 
-void	*load_image(t_data *data, char *path, int *width, int *height)
+void	*load_image(t_data *data, char *path, char *str)
 {
 	void	*image;
 
-	image = mlx_xpm_file_to_image(data->mlx_ptr, path, width, height);
+	image = mlx_xpm_file_to_image(data->mlx_ptr, path,
+			&data->img.img_width, &data->img.img_height);
 	if (!image)
+	{
+		ft_printf("\e[1;31mERROR\nProblem with '%s' assets\n\e[0m", str);
 		destroy_image(data);
+	}
 	return (image);
 }
 
@@ -61,24 +65,18 @@ void	set_image(t_data *data)
 	data->img.img_exit = NULL;
 	data->img.img_enemy = NULL;
 	data->img.img_player = load_image(data, data->img.player,
-			&data->img.img_width, &data->img.img_height);
+			"Player_down");
 	data->img.img_wall = load_image(data, data->img.wall,
-			&data->img.img_width, &data->img.img_height);
+			"Wall");
 	data->img.img_collectible = load_image(data,
-			data->img.collectible, &data->img.img_width, &data->img.img_height);
+			data->img.collectible, "Collectible");
 	data->img.img_space = load_image(data, data->img.space,
-			&data->img.img_width, &data->img.img_height);
+			"Floor");
 	data->img.img_exit = load_image(data, data->img.exit,
-			&data->img.img_width, &data->img.img_height);
-	data->img.img_enemy = load_image(data, data->img.enemy,
-			&data->img.img_width, &data->img.img_height);
-	if (!data->img.img_player || !data->img.img_wall
-		|| !data->img.img_collectible || !data->img.img_space
-		|| !data->img.img_exit || (data->content.bad && !data->img.img_enemy))
-	{
-		ft_error("ERROR\nProblem with assets's path or name");
-		destroy_image(data);
-	}
+			"Exit");
+	if (data->content.bad)
+		data->img.img_enemy = load_image(data, data->img.enemy,
+				"Enemy");
 }
 
 void	init_window(t_data *data)

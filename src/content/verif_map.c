@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:55:31 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/22 21:50:55 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 15:39:15 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_column(char *line, char wall, t_data *data)
 	}
 	if (line[0] != wall || line[i - 1] != wall)
 	{
-		ft_error("ERROR\nThe map is invalid\n");
+		ft_error("ERROR\nThe map is not surrounded by walls\n");
 		return (0);
 	}
 	data->width = i;
@@ -100,7 +100,7 @@ int	check_line(char *line, char wall, t_data *data)
 	{
 		if (line[i] != wall)
 		{
-			ft_error("ERROR\nThe map is invalid\n");
+			ft_error("ERROR\nThe map is not surrounded by walls\n");
 			return (0);
 		}
 		i++;
@@ -128,7 +128,7 @@ int	check_is_rectangle(char **map)
 		while (map[i][j])
 			j++;
 		if (j != count)
-			return (ft_error("ERROR\nThe line of map is invalid\n"), 0);
+			return (ft_error("ERROR\nThe line doesn't have same length\n"), 0);
 		i++;
 		if (line == j)
 			return (ft_error("ERROR\nThe map must be a rectangle\n"), 0);

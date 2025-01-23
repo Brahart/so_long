@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/22 23:10:16 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 15:27:38 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 	if (!data.map)
 	{
 		free(data.map);
-		return (ft_error("ERROR with map allocation\n"), 0);
+		return (0);
 	}
 	init_mlx_ptr(&data);
 	if (!data.mlx_ptr)

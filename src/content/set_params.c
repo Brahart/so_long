@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 01:03:35 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 16:37:09 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,17 @@ void	check_player_l_and_r(t_data *data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player)
 	{
-		ft_error("ERROR\nProblem with assets of Player_left");
+		ft_error("ERROR\nProblem with dynamic assets 'Player_left'");
+		ft_fail(data);
+	}
+	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
+	data->img.player = PLAYER_RIGHT;
+	data->img.img_player = mlx_xpm_file_to_image(
+			data->mlx_ptr, data->img.player,
+			&data->img.img_width, &data->img.img_height);
+	if (!data->img.img_player)
+	{
+		ft_error("ERROR\nProblem with dynamic assets 'Player_right'");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
@@ -46,22 +56,24 @@ void	check_assets(t_data	*data)
 {
 	check_player_l_and_r(data);
 	data->img.player = PLAYER_UP;
-	data->img.img_player = mlx_xpm_file_to_image(data, data->img.player,
+	data->img.img_player = mlx_xpm_file_to_image(
+			data->mlx_ptr, data->img.player,
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player)
 	{
-		ft_error("ERROR\nProblem with assets of Player_up");
+		ft_error("ERROR\nProblem with dynamic assets 'Player_up'");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
 	data->img.img_player = NULL;
 	data->img.player = PLAYER_DOWN;
 	data->img.exit = EXIT_OPEN;
-	data->img.img_exit = mlx_xpm_file_to_image(data, data->img.exit,
+	data->img.img_exit = mlx_xpm_file_to_image(
+			data->mlx_ptr, data->img.exit,
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_exit)
 	{
-		ft_error("ERROR\nProblem with assets of Exit_open");
+		ft_error("ERROR\nProblem with dynamic assets 'Exit_open'");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_exit);

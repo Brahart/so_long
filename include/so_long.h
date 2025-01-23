@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 00:38:16 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 17:09:08 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 void	destroy_image(t_data *data);
-void	*load_image(t_data *data, char *path, int *width, int *height);
+void	*load_image(t_data *data, char *path, char *str);
 			/* MOUVEMENT */
 int		keyboard_key(int key, t_data *data);
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
