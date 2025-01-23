@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:58:46 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/15 14:55:31 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 00:52:06 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ void	ft_free(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
 	if (data->img.img_enemy)
 		mlx_destroy_image(data->mlx_ptr, data->img.img_enemy);
+}
+
+int	ft_fail(t_data *data)
+{
+	free_map(data->map);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	exit(0);
 }

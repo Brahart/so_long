@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/16 15:58:15 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/22 22:03:44 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ static char	**parse_map(int fd, t_data *data)
 		return (NULL);
 	}
 	check_map(data);
-	check_flood_fill(data);
 	return (data->map);
 }
 
@@ -126,9 +125,9 @@ char	**verif_map(char **arg, t_data *data)
 	{
 		free_map(data->map);
 		return (ft_error(
-				"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"),
-			NULL);
+				"ERROR\nNeed 1 Player/Exit and at least 1 Object\n"), NULL);
 	}
+	check_flood_fill(data);
 	close(fd);
 	return (data->map);
 }

@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/20 14:28:59 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 00:38:44 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ void	print_img(t_data *data, void *img, int x, int y)
 		data->img.img_height * y);
 }
 
-void	*load_image(void *mlx_ptr, char *path, int *width, int *height)
+void	*load_image(t_data *data, char *path, int *width, int *height)
 {
-	return (mlx_xpm_file_to_image(mlx_ptr, path, width, height));
+	void	*image;
+
+	image = mlx_xpm_file_to_image(data->mlx_ptr, path, width, height);
+	if (!image)
+		destroy_image(data);
+	return (image);
 }
 
 void	destroy_image(t_data *data)
@@ -55,17 +60,17 @@ void	set_image(t_data *data)
 	data->img.img_player = NULL;
 	data->img.img_exit = NULL;
 	data->img.img_enemy = NULL;
-	data->img.img_player = load_image(data->mlx_ptr, data->img.player,
+	data->img.img_player = load_image(data, data->img.player,
 			&data->img.img_width, &data->img.img_height);
-	data->img.img_wall = load_image(data->mlx_ptr, data->img.wall,
+	data->img.img_wall = load_image(data, data->img.wall,
 			&data->img.img_width, &data->img.img_height);
-	data->img.img_collectible = load_image(data->mlx_ptr,
+	data->img.img_collectible = load_image(data,
 			data->img.collectible, &data->img.img_width, &data->img.img_height);
-	data->img.img_space = load_image(data->mlx_ptr, data->img.space,
+	data->img.img_space = load_image(data, data->img.space,
 			&data->img.img_width, &data->img.img_height);
-	data->img.img_exit = load_image(data->mlx_ptr, data->img.exit,
+	data->img.img_exit = load_image(data, data->img.exit,
 			&data->img.img_width, &data->img.img_height);
-	data->img.img_enemy = load_image(data->mlx_ptr, data->img.enemy,
+	data->img.img_enemy = load_image(data, data->img.enemy,
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player || !data->img.img_wall
 		|| !data->img.img_collectible || !data->img.img_space
@@ -83,8 +88,10 @@ void	init_window(t_data *data)
 			(data->height * data->img.img_height), "so_long");
 	if (!data->mlx_win)
 	{
+		ft_error("ERROR\nProblem with allocation of mlx_win");
+		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
-		return ;
+		free_map_and_exit(data->map);
 	}
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);

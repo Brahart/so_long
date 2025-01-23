@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/20 14:32:42 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 00:38:16 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,23 @@ int		check_content_map(char *line, t_cont content);
 void	check_flood_fill(t_data *data);
 int		verif_double_backspace(char *line);
 			/* SET CONTENT */
-void	set_content(t_cont *content);
+void	set_content(t_data *data);
 void	set_assets(t_data *data);
 void	set_image(t_data *data);
 			/* INIT IMAGE */
+void	init_mlx_ptr(t_data *data);
 void	init_window(t_data *data);
 int		rendered(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 void	destroy_image(t_data *data);
+void	*load_image(t_data *data, char *path, int *width, int *height);
 			/* MOUVEMENT */
 int		keyboard_key(int key, t_data *data);
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
 			/* END */
 int		end_game(t_data *data);
 void	ft_free(t_data *data);
+int		ft_fail(t_data *data);
 			/* UTILS */
 void	ft_error(const char *str);
 void	ft_win(int moves);
