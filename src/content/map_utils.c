@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:25:25 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/22 21:53:58 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 18:44:20 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	check_flood_fill(t_data *data)
 	data->content.tmp_ex = 1;
 	if (!copy_map(data))
 	{
-		ft_error("ERROR\ncopy_map has failed");
+		ft_error("ERROR\ncopy_map has failed\n");
 		free_map(data->map);
 		exit (0);
 	}
@@ -70,13 +70,13 @@ void	check_flood_fill(t_data *data)
 	free_map(data->flood);
 	if (data->content.tmp_c)
 	{
-		ft_error("ERROR\nAll collectible are not accessible");
+		ft_error("ERROR\nAll collectible are not accessible\n");
 		free_map(data->map);
 		exit(0);
 	}
 	if (data->content.tmp_ex)
 	{
-		ft_error("ERROR\nThe exit is not accessible");
+		ft_error("ERROR\nThe exit is not accessible\n");
 		free_map(data->map);
 		exit(0);
 	}
@@ -89,7 +89,7 @@ int	verif_double_backspace(char *line)
 	i = 1;
 	if (line[0] == '\n')
 	{
-		ft_error("ERROR\nThe map contains invalid return to line\n");
+		ft_error("The map contains invalid return to line\n\n");
 		return (0);
 	}
 	while (line[i])
@@ -99,7 +99,7 @@ int	verif_double_backspace(char *line)
 			if (line[i + 1] == '\n')
 			{
 				ft_error(
-					"ERROR\nThe map contains invalid return to line\n");
+					"The map contains invalid return to line\n\n");
 				return (0);
 			}
 		}
@@ -107,6 +107,6 @@ int	verif_double_backspace(char *line)
 	}
 	if (line[i - 1] == '\n')
 		return (ft_error(
-				"ERROR\nThe map contains invalid return to line\n"), 0);
+				"The map contains invalid return to line\n\n"), 0);
 	return (1);
 }

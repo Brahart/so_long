@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:13:52 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/20 14:12:11 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 14:57:07 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	player_rend(t_data *data, int y, int x, char *sprite)
 		else if (data->map[y][x] == data->content.exit
 				&& check_collect(data) == 0)
 		{
-			ft_win(data->count);
+			ft_win(data);
 			end_game(data);
 		}
 		else
@@ -68,4 +68,27 @@ int	keyboard_key(int key, t_data *data)
 			|| key != XK_d || key != XK_Right))
 		ft_error("ERROR\n Bad key(s) press\n");
 	return (0);
+}
+
+void	print_collect(t_data *data)
+{
+	char	*collect;
+	char	*str;
+
+	collect = ft_itoa(check_collect(data));
+	if (!collect)
+	{
+		ft_error("ERROR with itoa for display collect\n");
+		end_game(data);
+	}
+	str = ft_strjoin("Chest to recover: ", collect);
+	if (!str)
+	{
+		ft_error("ERROR for join the strings of the collect display\n");
+		end_game(data);
+	}
+	if (check_collect(data))
+		mlx_string_put(data->mlx_ptr, data->mlx_win, 60, 100, 0xFF0000, str);
+	free(str);
+	free(collect);
 }

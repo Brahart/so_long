@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:10:54 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 16:36:43 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 18:41:51 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	print_img(t_data *data, void *img, int x, int y)
 {
+	if (!img)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+		destroy_image(data);
+	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img,
 		(data->img.img_width * x),
 		data->img.img_height * y);
@@ -28,6 +33,8 @@ void	*load_image(t_data *data, char *path, char *str)
 	if (!image)
 	{
 		ft_printf("\e[1;31mERROR\nProblem with '%s' assets\n\e[0m", str);
+		if (data->verif_win == 1)
+			mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 		destroy_image(data);
 	}
 	return (image);
@@ -36,9 +43,6 @@ void	*load_image(t_data *data, char *path, char *str)
 void	destroy_image(t_data *data)
 {
 	free_map(data->map);
-	if (!data->img.img_player
-		&& ft_strncmp(data->img.player, PLAYER_DOWN, 1024))
-		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	if (data->img.img_space)
 		mlx_destroy_image(data->mlx_ptr, data->img.img_space);
 	if (data->img.img_wall)
@@ -65,7 +69,7 @@ void	set_image(t_data *data)
 	data->img.img_exit = NULL;
 	data->img.img_enemy = NULL;
 	data->img.img_player = load_image(data, data->img.player,
-			"Player_down");
+			"Player");
 	data->img.img_wall = load_image(data, data->img.wall,
 			"Wall");
 	data->img.img_collectible = load_image(data,
@@ -86,11 +90,13 @@ void	init_window(t_data *data)
 			(data->height * data->img.img_height), "so_long");
 	if (!data->mlx_win)
 	{
-		ft_error("ERROR\nProblem with allocation of mlx_win");
+		ft_error("ERROR\nProblem with allocation of mlx_win\n");
+		destroy_image(data);
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 		free_map_and_exit(data->map);
 	}
+	data->verif_win = 1;
 	mlx_loop_hook(data->mlx_ptr, rendered, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, keyboard_key, data);
 	mlx_hook(data->mlx_win, DestroyNotify, 0, end_game, data);

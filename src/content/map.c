@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:31:13 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/22 22:03:44 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 18:04:42 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	**parse_map(int fd, t_data *data)
 	str_tmp = extract_map(fd);
 	if (!str_tmp)
 	{
-		ft_error("ERROR\nProblem with extract_map function\n");
+		ft_error("Problem with extract_map function\n\n");
 		return (NULL);
 	}
 	if (verif_double_backspace(str_tmp) == 0)
@@ -96,7 +96,7 @@ static char	**parse_map(int fd, t_data *data)
 	free(str_tmp);
 	if (!data->map)
 	{
-		ft_error("ERROR\nProblem with split function\n");
+		ft_error("Problem with split function\n\n");
 		return (NULL);
 	}
 	check_map(data);

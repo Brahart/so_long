@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:18:32 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 00:38:32 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 17:04:18 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rendered_exit(t_data *data, int j, int i)
 				&data->img.img_width, &data->img.img_height);
 		if (!data->img.img_exit)
 		{
-			ft_error("ERROR\nProblem with assets's path or name");
+			ft_error("ERROR\nProblem with 'Exit_open' assets\n");
 			mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 			destroy_image(data);
 		}
@@ -110,7 +110,8 @@ void	print_moves(t_data *data)
 int	rendered(t_data *data)
 {
 	rendered_background(data);
-	print_moves(data);
 	rendered_other(data);
+	print_moves(data);
+	print_collect(data);
 	return (0);
 }

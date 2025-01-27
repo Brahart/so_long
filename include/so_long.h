@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 17:02:00 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 17:09:08 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 17:35:29 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct data_s
 	int			count;
 	int			x;
 	int			y;
+	int			verif_win;
 }	t_data;
 
 			/* LIBFT */
@@ -119,13 +120,14 @@ void	*load_image(t_data *data, char *path, char *str);
 			/* MOUVEMENT */
 int		keyboard_key(int key, t_data *data);
 void	player_rend(t_data *data, int pos_y, int pos_x, char *sprite);
+void	print_collect(t_data *data);
 			/* END */
 int		end_game(t_data *data);
 void	ft_free(t_data *data);
 int		ft_fail(t_data *data);
 			/* UTILS */
 void	ft_error(const char *str);
-void	ft_win(int moves);
+void	ft_win(t_data *data);
 int		check_collect(t_data *data);
 void	flood_fill(t_data *data, int x, int y);
 int		is_ber(char *str, const char *ber);

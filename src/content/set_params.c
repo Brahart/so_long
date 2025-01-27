@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:11:09 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 16:37:09 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 18:11:02 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_player_l_and_r(t_data *data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player)
 	{
-		ft_error("ERROR\nProblem with dynamic assets 'Player_left'");
+		ft_error("ERROR\nProblem with dynamic assets 'Player_left'\n");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
@@ -46,7 +46,7 @@ void	check_player_l_and_r(t_data *data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player)
 	{
-		ft_error("ERROR\nProblem with dynamic assets 'Player_right'");
+		ft_error("ERROR\nProblem with dynamic assets 'Player_right'\n");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
@@ -61,7 +61,7 @@ void	check_assets(t_data	*data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_player)
 	{
-		ft_error("ERROR\nProblem with dynamic assets 'Player_up'");
+		ft_error("ERROR\nProblem with dynamic assets 'Player_up'\n");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_player);
@@ -73,7 +73,7 @@ void	check_assets(t_data	*data)
 			&data->img.img_width, &data->img.img_height);
 	if (!data->img.img_exit)
 	{
-		ft_error("ERROR\nProblem with dynamic assets 'Exit_open'");
+		ft_error("ERROR\nProblem with dynamic assets 'Exit_open'\n");
 		ft_fail(data);
 	}
 	mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
@@ -82,6 +82,7 @@ void	check_assets(t_data	*data)
 
 void	set_assets(t_data *data)
 {
+	data->verif_win = 0;
 	data->img.img_height = 64;
 	data->img.img_width = 64;
 	data->img.space = FLOOR;
@@ -105,7 +106,7 @@ void	init_mlx_ptr(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 	{
-		ft_error("ERROR\nProblem with allocation of mlx_ptr");
+		ft_error("ERROR\nProblem with allocation of mlx_ptr\n");
 		free_map_and_exit(data->map);
 	}
 }

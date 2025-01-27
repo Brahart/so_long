@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:23:59 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/16 13:59:41 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 17:33:36 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,26 @@ int	check_collect(t_data *data)
 	return (count);
 }
 
-void	ft_win(int moves)
+void	ft_win(t_data *data)
 {
-	moves++;
+	char	*bold_blue;
+	char	*bold_green;
+	char	*underline;
+
+	bold_blue = "\e[1;34m";
+	bold_green = "\e[1;32m";
+	underline = "\e[4;34m";
+	data->count++;
 	ft_printf(
-		"\e[1;32mCongrats !!! You finished the game in : %d moves !!!\n\e[0m",
-		moves);
+		"%s----------- Congrats !!! -----------\n\e[0m",
+		bold_green);
+	ft_printf(
+		"%sYou collected : %s%d\e[0m %schest(s)\e[0m",
+		bold_green, underline, data->content.count_c,
+		bold_green);
+	ft_printf("%s in %s%d\e[0m %smoves !!!\n\e[0m",
+		bold_green, underline, data->count,
+		bold_green);
 	return ;
 }
 

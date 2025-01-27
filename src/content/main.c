@@ -6,7 +6,7 @@
 /*   By: asinsard <asinsard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:45:42 by asinsard          #+#    #+#             */
-/*   Updated: 2025/01/23 15:27:38 by asinsard         ###   ########lyon.fr   */
+/*   Updated: 2025/01/27 17:26:50 by asinsard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac != 2)
-		return (ft_error("ERROR\nThe number of arguments is invalid"), 0);
+		return (ft_error(
+				"ERROR\nThe number of arguments is invalid\n"), 0);
 	data.count = 0;
 	set_content(&data);
 	data.map = verif_map(av, &data);
